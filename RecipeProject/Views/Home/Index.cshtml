@@ -1,0 +1,158 @@
+﻿@using RecipeProjectMVC.Models
+@model List<Food>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+    var modelCount = Model.Count;
+    var random = new Random();
+    HashSet<int> uniqueNumbers = GenerateUniqueRandomNumbers(6, 1, modelCount);
+    
+
+    static HashSet<int> GenerateUniqueRandomNumbers(int count, int minValue, int maxValue)
+    {
+        Random random = new Random();
+        HashSet<int> uniqueNumbers = new HashSet<int>();
+
+        while (uniqueNumbers.Count < count)
+        {
+            int number = random.Next(minValue, maxValue);
+            uniqueNumbers.Add(number);
+        }
+
+        return uniqueNumbers;
+    }
+   
+    ModifiedList<Food> foods = new ModifiedList<Food>();
+    foreach (var item in Model)
+    {
+        foods.Add(item);
+    }
+
+    var infoss = ViewBag.infos as List<Info>;
+    HashSet<int> uniqueNumbers2 = GenerateUniqueRandomNumbers(3, 1, infoss.Count);
+}
+<head>
+    <style>
+        .carousel-inner img {
+            width: 100%;
+            height: 200px; /* İstediğiniz sabit yüksekliği belirleyin */
+            object-fit: cover; /* Resimlerin taşmamasını sağlar ve kırpma yapar */
+        }
+
+        .card {
+            margin-bottom: 1rem; /* Kartlar arasındaki boşlukları azaltır */
+        }
+
+        .container-fluid {
+            margin-top: 4%;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap; /* Kartların satır bazında sarılmasını sağlar */
+            justify-content: center; /* İçeriği yatayda ortalar */
+        }
+
+        .col-sm-4 {
+            display: flex;
+            justify-content: center; /* Kartları ortalar */
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-body {
+            margin-bottom: 10px; /* Kartlar arasındaki boşluğu azaltır */
+            padding: 0;
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid #ddd; /* Başlık ve içeriği ayıran ince bir çizgi */
+            margin-bottom: -5px;
+        }
+
+        .card-text p {
+           
+            margin: 0; /* Üst ve alt marginleri sıfırlar */
+            padding: 0; /* İç paddingi sıfırlar */
+        }
+
+
+    </style>
+</head>
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Left -->
+        <div class="col-md-2"></div>
+        <!-- Mid -->
+        <div class="col-md-8">
+            <div class="row">
+                @for (var i = 0; i < 6; i++)
+                {
+                    var selectedNumber = uniqueNumbers.ElementAt(i);
+                    bool contains = Model.Any(p => p.ID == selectedNumber);
+                    var food = contains ? foods[selectedNumber] : Model[1];
+                    <div class="col-sm-4">
+                        <div class="card rounded-lg" style="width: 100%;">
+                            <div id="carouselExampleControls_@food.ID" class="carousel slide">
+                                <div class="carousel-inner">
+                                    @for (var j = 0; j < food.OtherPictures.Count; j++)
+                                    {
+                                        var picture = food.OtherPictures[j];
+                                        var photoPath = picture.PhotoPath.Replace("~", "");
+                                        <div class="carousel-item @(j == 0 ? "active" : "")">
+                                            <img src="@photoPath" class="d-block w-100" alt="...">
+                                        </div>
+                                    }
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center text-center">
+                                <h5 class="card-title">@food.Name</h5>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-utensils"></i>  @food.PreparationTime
+                                    <i class="fa-solid fa-kitchen-set"></i> @food.CookingTime
+                                    <i class="fa-solid fa-person"></i> @food.HowManyPerson
+                                </p>
+                                <a href="#" class="btn btn-primary">Detay</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Right -->
+        <div class="col-md-2 ">
+            <div class="col-sm-12 p-0 " style="border:1px solid black;">
+                <div class="card rounded-0 border-0 card-container" style="width: 100%;">
+                    <div class="card-header d-flex align-items-center" style="background-color: transparent;">
+                        <i class="fa-solid fa-circle-question me-2" style="width:20px;height:20px;"></i>
+                        <h5 class="mb-0">Bunu Biliyor musunuz?</h5>
+                    </div>
+                    @for (var c = 0; c < 3; c++)
+                    {
+                        var selectedNumber2 = uniqueNumbers2.ElementAt(c);
+                        var inf = infoss[selectedNumber2];
+                        <div class="card-body text-center" >
+                            <div class="card-text">
+                                <p>@inf.inf</p><br>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
