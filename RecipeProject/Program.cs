@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Recipe.BL.Manager.Abstract;
-using Recipe.BL.Manager.Concrete;
 using Recipe.Entities.DbContexts;
-using Recipe.Entities.Model.Concrete;
+using RecipeProjectMVC.Extensions;
 
 namespace RecipeProject
 {
@@ -13,10 +11,7 @@ namespace RecipeProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped(typeof(IManager<Food, int>), typeof(BaseManager<Food, int>));
-            builder.Services.AddScoped(typeof(IManager<Category, int>), typeof(BaseManager<Category, int>));
-            builder.Services.AddScoped(typeof(IManager<Info, int>), typeof(BaseManager<Info, int>));
+            builder.Services.AddRecipeInfoService();
             builder.Services.AddDbContext<sqlContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("default")));
             var app = builder.Build();
 
