@@ -33,7 +33,7 @@ public class FoodInsertVM
     [Required(AllowEmptyStrings = false, ErrorMessage = "Boş Bırakılamaz!")]
     [DisplayName("Tarif Açıklaması:")]
     public string RecipeExplanation { get; set; }
-    public string OnePicture { get; set; }
+
 
     public List<IFormFile>? OtherPictures { get; set; } // Resim dosyasını alacak property
 

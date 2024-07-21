@@ -27,6 +27,10 @@ namespace Recipe.Entities.EntityConfig.Concrete
                 new CategoryFood { FoodId = 19, CategoryId = 6 },
                 new CategoryFood { FoodId = 19, CategoryId = 8 },
                 new CategoryFood { FoodId = 20, CategoryId = 1 },
+                new CategoryFood { FoodId = 12, CategoryId = 9 },
+                new CategoryFood { FoodId = 44, CategoryId = 9 },
+                new CategoryFood { FoodId = 52, CategoryId = 9 },
+
 
 
                 new CategoryFood { FoodId = 1, CategoryId = 2 },

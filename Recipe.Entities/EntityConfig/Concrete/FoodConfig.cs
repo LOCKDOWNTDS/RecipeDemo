@@ -134,7 +134,13 @@ namespace Recipe.Entities.EntityConfig.Concrete
                 },
                 new Food
                 {
-                    ID = 12
+                    ID = 12,
+                    Name = "Aşure",
+                    Materials = "Buğday, nohut, kuru fasulye, kuru kayısı, kuru incir, kuru üzüm, ceviz, fındık, nar, su, şeker",
+                    HowManyPerson = "10 kişilik",
+                    PreparationTime = "30 dakika",
+                    CookingTime = "2 saat",
+                    RecipeExplanation = "Buğday, nohut ve kuru fasulyeyi ayrı ayrı haşlayın. Kuru kayısı, kuru incir ve kuru üzümü küçük doğrayın. Tüm malzemeleri büyük bir tencereye alın, su ekleyin ve kaynatın. Şekeri ekleyin ve karıştırarak pişirin. Aşure kıvamına gelince ocaktan alın ve kaselere dökün. Üzerini ceviz, fındık ve nar ile süsleyerek soğuk servis yapın."
                 },
                 new Food
                 {
@@ -454,6 +460,12 @@ namespace Recipe.Entities.EntityConfig.Concrete
                 new Food
                 {
                     ID = 44,
+                    Name = "Güllaç",
+                    Materials = "Güllaç yaprağı, süt, şeker, gül suyu, ceviz, nar",
+                    HowManyPerson = "6 kişilik",
+                    PreparationTime = "20 dakika",
+                    CookingTime = "10 dakika",
+                    RecipeExplanation = "Sütü ve şekeri ısıtın. Güllaç yapraklarını sütle ıslatarak üst üste dizin. Aralarına ceviz serpin. Gül suyu ekleyin. Üzerine nar taneleri ile süsleyin ve soğuk servis yapın."
                 },
                 new Food
                 {
@@ -530,7 +542,14 @@ namespace Recipe.Entities.EntityConfig.Concrete
                 },
                 new Food
                 {
-                    ID = 52
+                    ID = 52,
+                    Name = "Künefe",
+                    Materials = "Kadayıf, tuzsuz peynir, tereyağı, şeker, su, limon",
+                    HowManyPerson = "6 kişilik",
+                    PreparationTime = "30 dakika",
+                    CookingTime = "20 dakika",
+                    RecipeExplanation = "Kadayıfı tereyağı ile karıştırın ve yarısını tepsiye yayın. Üzerine peyniri koyun ve kalan kadayıfı üzerine kapatın. Orta ateşte altın rengi alana kadar pişirin. Şerbet için şeker, su ve limonu kaynatın ve sıcak künefenin üzerine dökün."
+
                 },
                 new Food
                 {

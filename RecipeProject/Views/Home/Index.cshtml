@@ -62,6 +62,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            border-radius: 20px;
+           
         }
 
         .card-body {
@@ -73,86 +75,100 @@
             background-color: transparent;
             border-bottom: 1px solid #ddd; /* Başlık ve içeriği ayıran ince bir çizgi */
             margin-bottom: -5px;
+            
         }
 
         .card-text p {
-           
+            text-align: justify;
             margin: 0; /* Üst ve alt marginleri sıfırlar */
             padding: 0; /* İç paddingi sıfırlar */
         }
 
+        .background {
+            background-image: url('img/food-cooking-background-on-white-table-2JDWXK5.png');
+            width:100%;
+            height:100%;
+            background-size:cover;
+            background-repeat:no-repeat;
+           
+        }
 
-    </style>
+            
+            </style>
 </head>
-<div class="container-fluid">
+<body class="background">
+    <div class="container-fluid ">
 
-    <div class="row">
-        <!-- Left -->
-        <div class="col-md-2"></div>
-        <!-- Mid -->
-        <div class="col-md-8">
-            <div class="row">
-                @for (var i = 0; i < 6; i++)
-                {
-                    var selectedNumber = uniqueNumbers.ElementAt(i);
-                    bool contains = Model.Any(p => p.ID == selectedNumber);
-                    var food = contains ? foods[selectedNumber] : Model[1];
-                    <div class="col-sm-4">
-                        <div class="card rounded-lg" style="width: 100%;">
-                            <div id="carouselExampleControls_@food.ID" class="carousel slide">
-                                <div class="carousel-inner">
-                                    @for (var j = 0; j < food.OtherPictures.Count; j++)
-                                    {
-                                        var picture = food.OtherPictures[j];
-                                        var photoPath = picture.PhotoPath.Replace("~", "");
-                                        <div class="carousel-item @(j == 0 ? "active" : "")">
-                                            <img src="@photoPath" class="d-block w-100" alt="...">
-                                        </div>
-                                    }
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <div class="card-body d-flex flex-column justify-content-center text-center">
-                                <h5 class="card-title">@food.Name</h5>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-utensils"></i>  @food.PreparationTime
-                                    <i class="fa-solid fa-kitchen-set"></i> @food.CookingTime
-                                    <i class="fa-solid fa-person"></i> @food.HowManyPerson
-                                </p>
-                                <a href="#" class="btn btn-primary">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <!-- Right -->
-        <div class="col-md-2 ">
-            <div class="col-sm-12 p-0 " style="border:1px solid black;">
-                <div class="card rounded-0 border-0 card-container" style="width: 100%;">
-                    <div class="card-header d-flex align-items-center" style="background-color: transparent;">
-                        <i class="fa-solid fa-circle-question me-2" style="width:20px;height:20px;"></i>
-                        <h5 class="mb-0">Bunu Biliyor musunuz?</h5>
-                    </div>
-                    @for (var c = 0; c < 3; c++)
+        <div class="row">
+            <!-- Left -->
+            <div class="col-md-2"></div>
+            <!-- Mid -->
+            <div class="col-md-8">
+                <div class="row">
+                    @for (var i = 0; i < 6; i++)
                     {
-                        var selectedNumber2 = uniqueNumbers2.ElementAt(c);
-                        var inf = infoss[selectedNumber2];
-                        <div class="card-body text-center" >
-                            <div class="card-text">
-                                <p>@inf.inf</p><br>
+                        var selectedNumber = uniqueNumbers.ElementAt(i);
+                        bool contains = Model.Any(p => p.ID == selectedNumber);
+                        var food = contains ? foods[selectedNumber] : Model[1];
+                        <div class="col-sm-4 ">
+                            <div class="card rounded-lg" style="width: 100%;">
+                                <div id="carouselExampleControls_@food.ID" class="carousel slide">
+                                    <div class="carousel-inner">
+                                        @for (var j = 0; j < food.OtherPictures.Count; j++)
+                                        {
+                                            var picture = food.OtherPictures[j];
+                                            var photoPath = picture.PhotoPath.Replace("~", "");
+                                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                                <img src="@photoPath" class="d-block w-100" alt="...">
+                                            </div>
+                                        }
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@food.ID" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <div class="card-body d-flex flex-column justify-content-center text-center">
+                                    <h5 class="card-title">@food.Name</h5>
+                                    <p class="card-text">
+                                        <i class="fa-solid fa-utensils"></i>  @food.PreparationTime
+                                        <i class="fa-solid fa-kitchen-set"></i> @food.CookingTime
+                                        <i class="fa-solid fa-person"></i> @food.HowManyPerson
+                                    </p>
+                                    <a href="#" class="btn btn-primary "style="margin-bottom:-9px;">Detay</a>
+                                </div>
                             </div>
                         </div>
                     }
                 </div>
             </div>
+            <!-- Right -->
+            <div class="col-md-2 ">
+                <div class="col-sm-12 p-0 rounded-lg">
+                    <div class="card card-container " style="width: 100%; border:1px solid black; border-radius:20px;">
+                        <div class="card-header d-flex align-items-center" style="background-color: transparent;">
+                            <i class="fa-solid fa-circle-question me-2 fa-2x"></i>
+                            <h5 class="mb-0">Bunu Biliyor musunuz?</h5>
+                        </div>
+                        @for (var c = 1; c < 4; c++)
+                        {
+                            var selectedNumber2 = uniqueNumbers2.ElementAt(c - 1);
+                            var inf = infoss[selectedNumber2];
+                            <div class="card-body text-center" style="margin:10px;">
+                                <div class="card-text">
+                                    <p style="color:red;">@c -</p><p> @inf.inf</p><br>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+</body>
+

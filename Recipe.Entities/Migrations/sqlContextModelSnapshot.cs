@@ -38,7 +38,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 21, 13, 43, 48, 111, DateTimeKind.Utc).AddTicks(6088));
+                        .HasDefaultValue(new DateTime(2024, 7, 21, 20, 42, 45, 314, DateTimeKind.Utc).AddTicks(8814));
 
                     b.HasKey("ID");
 
@@ -175,6 +175,21 @@ namespace Recipe.Entities.Migrations
                         {
                             CategoryId = 1,
                             FoodId = 20
+                        },
+                        new
+                        {
+                            CategoryId = 9,
+                            FoodId = 12
+                        },
+                        new
+                        {
+                            CategoryId = 9,
+                            FoodId = 44
+                        },
+                        new
+                        {
+                            CategoryId = 9,
+                            FoodId = 52
                         },
                         new
                         {
@@ -439,7 +454,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 21, 13, 43, 48, 113, DateTimeKind.Utc).AddTicks(4742));
+                        .HasDefaultValue(new DateTime(2024, 7, 21, 20, 42, 45, 316, DateTimeKind.Utc).AddTicks(245));
 
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
@@ -470,15 +485,17 @@ namespace Recipe.Entities.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("CookingTime")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 21, 13, 43, 48, 114, DateTimeKind.Utc).AddTicks(2123));
+                        .HasDefaultValue(new DateTime(2024, 7, 21, 20, 42, 45, 316, DateTimeKind.Utc).AddTicks(5404));
 
                     b.Property<string>("HowManyPerson")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -487,10 +504,12 @@ namespace Recipe.Entities.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Materials")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -498,10 +517,12 @@ namespace Recipe.Entities.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PreparationTime")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("RecipeExplanation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -635,7 +656,13 @@ namespace Recipe.Entities.Migrations
                         new
                         {
                             ID = 12,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            CookingTime = "2 saat",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HowManyPerson = "10 kişilik",
+                            Materials = "Buğday, nohut, kuru fasulye, kuru kayısı, kuru incir, kuru üzüm, ceviz, fındık, nar, su, şeker",
+                            Name = "Aşure",
+                            PreparationTime = "30 dakika",
+                            RecipeExplanation = "Buğday, nohut ve kuru fasulyeyi ayrı ayrı haşlayın. Kuru kayısı, kuru incir ve kuru üzümü küçük doğrayın. Tüm malzemeleri büyük bir tencereye alın, su ekleyin ve kaynatın. Şekeri ekleyin ve karıştırarak pişirin. Aşure kıvamına gelince ocaktan alın ve kaselere dökün. Üzerini ceviz, fındık ve nar ile süsleyerek soğuk servis yapın."
                         },
                         new
                         {
@@ -981,7 +1008,13 @@ namespace Recipe.Entities.Migrations
                         new
                         {
                             ID = 44,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            CookingTime = "10 dakika",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HowManyPerson = "6 kişilik",
+                            Materials = "Güllaç yaprağı, süt, şeker, gül suyu, ceviz, nar",
+                            Name = "Güllaç",
+                            PreparationTime = "20 dakika",
+                            RecipeExplanation = "Sütü ve şekeri ısıtın. Güllaç yapraklarını sütle ıslatarak üst üste dizin. Aralarına ceviz serpin. Gül suyu ekleyin. Üzerine nar taneleri ile süsleyin ve soğuk servis yapın."
                         },
                         new
                         {
@@ -1063,7 +1096,13 @@ namespace Recipe.Entities.Migrations
                         new
                         {
                             ID = 52,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            CookingTime = "20 dakika",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HowManyPerson = "6 kişilik",
+                            Materials = "Kadayıf, tuzsuz peynir, tereyağı, şeker, su, limon",
+                            Name = "Künefe",
+                            PreparationTime = "30 dakika",
+                            RecipeExplanation = "Kadayıfı tereyağı ile karıştırın ve yarısını tepsiye yayın. Üzerine peyniri koyun ve kalan kadayıfı üzerine kapatın. Orta ateşte altın rengi alana kadar pişirin. Şerbet için şeker, su ve limonu kaynatın ve sıcak künefenin üzerine dökün."
                         },
                         new
                         {
@@ -1166,7 +1205,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 21, 13, 43, 48, 114, DateTimeKind.Utc).AddTicks(4970));
+                        .HasDefaultValue(new DateTime(2024, 7, 21, 20, 42, 45, 316, DateTimeKind.Utc).AddTicks(8637));
 
                     b.Property<string>("inf")
                         .IsRequired()
@@ -1284,7 +1323,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 21, 13, 43, 48, 114, DateTimeKind.Utc).AddTicks(7175));
+                        .HasDefaultValue(new DateTime(2024, 7, 21, 20, 42, 45, 317, DateTimeKind.Utc).AddTicks(915));
 
                     b.Property<int?>("FoodId")
                         .HasColumnType("int");
@@ -1444,17 +1483,17 @@ namespace Recipe.Entities.Migrations
                         },
                         new
                         {
-                            ID = 20,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FoodId = 10,
-                            PhotoPath = "~/img/10.2.jpg"
-                        },
-                        new
-                        {
                             ID = 21,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FoodId = 11,
                             PhotoPath = "~/img/11.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 88,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 12,
+                            PhotoPath = "~/img/12.1.jpg"
                         },
                         new
                         {
@@ -1469,6 +1508,447 @@ namespace Recipe.Entities.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FoodId = 14,
                             PhotoPath = "~/img/14.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 24,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 15,
+                            PhotoPath = "~/img/15.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 25,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 15,
+                            PhotoPath = "~/img/15.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 26,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 16,
+                            PhotoPath = "~/img/16.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 27,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 16,
+                            PhotoPath = "~/img/16.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 28,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 17,
+                            PhotoPath = "~/img/17.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 29,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 18,
+                            PhotoPath = "~/img/18.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 30,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 19,
+                            PhotoPath = "~/img/19.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 31,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 20,
+                            PhotoPath = "~/img/20.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 32,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 21,
+                            PhotoPath = "~/img/21.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 33,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 22,
+                            PhotoPath = "~/img/22.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 34,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 23,
+                            PhotoPath = "~/img/23.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 35,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 23,
+                            PhotoPath = "~/img/23.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 36,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 24,
+                            PhotoPath = "~/img/24.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 37,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 24,
+                            PhotoPath = "~/img/24.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 38,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 25,
+                            PhotoPath = "~/img/25.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 39,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 25,
+                            PhotoPath = "~/img/25.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 40,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 26,
+                            PhotoPath = "~/img/26.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 41,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 27,
+                            PhotoPath = "~/img/27.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 42,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 28,
+                            PhotoPath = "~/img/28.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 43,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 29,
+                            PhotoPath = "~/img/29.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 44,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 30,
+                            PhotoPath = "~/img/30.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 45,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 31,
+                            PhotoPath = "~/img/31.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 46,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 31,
+                            PhotoPath = "~/img/31.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 47,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 32,
+                            PhotoPath = "~/img/32.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 48,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 33,
+                            PhotoPath = "~/img/33.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 49,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 33,
+                            PhotoPath = "~/img/33.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 50,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 34,
+                            PhotoPath = "~/img/34.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 51,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 34,
+                            PhotoPath = "~/img/34.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 52,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 35,
+                            PhotoPath = "~/img/35.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 53,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 36,
+                            PhotoPath = "~/img/36.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 54,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 36,
+                            PhotoPath = "~/img/36.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 55,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 37,
+                            PhotoPath = "~/img/37.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 56,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 37,
+                            PhotoPath = "~/img/37.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 57,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 38,
+                            PhotoPath = "~/img/38.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 58,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 39,
+                            PhotoPath = "~/img/39.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 59,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 40,
+                            PhotoPath = "~/img/40.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 60,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 41,
+                            PhotoPath = "~/img/41.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 61,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 42,
+                            PhotoPath = "~/img/42.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 62,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 42,
+                            PhotoPath = "~/img/42.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 63,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 43,
+                            PhotoPath = "~/img/43.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 64,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 44,
+                            PhotoPath = "~/img/44.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 65,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 45,
+                            PhotoPath = "~/img/45.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 66,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 46,
+                            PhotoPath = "~/img/46.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 67,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 47,
+                            PhotoPath = "~/img/47.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 68,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 47,
+                            PhotoPath = "~/img/47.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 69,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 48,
+                            PhotoPath = "~/img/48.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 70,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 48,
+                            PhotoPath = "~/img/48.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 71,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 49,
+                            PhotoPath = "~/img/49.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 72,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 49,
+                            PhotoPath = "~/img/49.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 73,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 50,
+                            PhotoPath = "~/img/50.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 74,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 50,
+                            PhotoPath = "~/img/50.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 75,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 51,
+                            PhotoPath = "~/img/51.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 76,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 52,
+                            PhotoPath = "~/img/52.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 77,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 53,
+                            PhotoPath = "~/img/53.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 78,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 54,
+                            PhotoPath = "~/img/54.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 79,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 55,
+                            PhotoPath = "~/img/55.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 80,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 56,
+                            PhotoPath = "~/img/56.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 81,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 56,
+                            PhotoPath = "~/img/56.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 82,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 57,
+                            PhotoPath = "~/img/57.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 83,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 57,
+                            PhotoPath = "~/img/57.2.jpg"
+                        },
+                        new
+                        {
+                            ID = 84,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 58,
+                            PhotoPath = "~/img/58.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 86,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 59,
+                            PhotoPath = "~/img/58.1.jpg"
+                        },
+                        new
+                        {
+                            ID = 87,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = 60,
+                            PhotoPath = "~/img/60.1.jpg"
                         });
                 });
 
