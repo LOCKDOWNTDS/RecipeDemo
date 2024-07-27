@@ -13,6 +13,7 @@ namespace RecipeProjectMVC.Extensions
             Services.AddScoped(typeof(IManager<Food, int>), typeof(BaseManager<Food, int>));
             Services.AddScoped(typeof(IManager<Category, int>), typeof(BaseManager<Category, int>));
             Services.AddScoped(typeof(IManager<Info, int>), typeof(BaseManager<Info, int>));
+            Services.AddScoped(typeof(IManager<Comments, int>), typeof(BaseManager<Comments, int>));
             // services.AddScoped(typeof(IManager<>),typeof(BaseManager<>));
             return Services;
         }
