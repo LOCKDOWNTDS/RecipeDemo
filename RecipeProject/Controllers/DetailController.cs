@@ -6,47 +6,57 @@ using RecipeProjectMVC.Models.ViewModels;
 
 namespace RecipeProjectMVC.Controllers
 {
-    public class DetailController(IManager<Food, int> foodManager, IManager<Comments, int> commentsManager) : Controller
+    public class DetailController : Controller
     {
+        private readonly IManager<Food, int> _foodManager;
+        private readonly IManager<Comments, int> _commentsManager;
+
+        public DetailController(IManager<Food, int> foodManager, IManager<Comments, int> commentsManager)
+        {
+            _foodManager = foodManager;
+            _commentsManager = commentsManager;
+        }
+
         public IActionResult Index(int id)
         {
-            var Food = foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures).Include(p => p.Comments).FirstOrDefault();
+            var food = _foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures)
+                                     .Include(p => p.Comments)
+                                     .FirstOrDefault();
 
-
-            if (Food == null)
+            if (food == null)
             {
                 return NotFound();
             }
 
             var foodDetailVM = new FoodDetailVM
             {
-                Food = Food,
-                Comments = Food.Comments.ToList()
+                Food = food,
+                Comments = food.Comments.ToList()
             };
 
-
             return View(foodDetailVM);
-
-
-
-
         }
         [HttpPost]
-        public IActionResult SaveComment(FoodDetailVM foodcomment)
+        public IActionResult SaveComment(FoodDetailVM foodcomment, int id)
         {
+            if (!ModelState.IsValid)
+            {
+                // Yeniden Index aksiyonuna dönerek hataları göstermek
+                return RedirectToAction("Index", new { id = foodcomment.Food.ID });
+            }
+
             var newComment = new Comments
             {
                 CommentText = foodcomment.NewCommentText,
                 CommentTitle = foodcomment.NewCommentTitle,
-                FoodId = foodcomment.Food.ID,
+                FoodId = id,
                 Stars = foodcomment.Stars,
             };
 
-            commentsManager.Insert(newComment);
+            _commentsManager.Insert(newComment);
 
-            return View();
+            // Yorum eklendikten sonra yeniden Index aksiyonuna dön
+            return RedirectToAction("Index", new { id = id });
         }
-
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model FoodDetailVM
 @{
-   
+    var foodId = Model.Food.ID;
 }
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -17,25 +17,28 @@
 
         .carousel-inner img {
             width: 100%;
-            height: 400px; /* İstediğiniz sabit yüksekliği belirleyin */
-            object-fit: cover; /* Resimlerin taşmamasını sağlar ve kırpma yapar */
+            height: 400px;
+            object-fit: cover;
         }
 
-        .carousel-inner{
-            margin-bottom:20px;
+        .carousel-inner {
+            margin-bottom: 20px;
         }
-        body{
-            background-color: rgba(211,211,211,0.25);
+
+        body {
+            background-color: rgba(211, 211, 211, 0.25);
         }
-        .card-header{
-            font-size:
+
+        .card-header {
+            font-size: 1.5rem;
         }
 
         .star-rating {
             display: flex;
             flex-direction: row-reverse;
             justify-content: center;
-            float:left;
+            float: left;
+            margin-top: 20px;
         }
 
             .star-rating input[type="radio"] {
@@ -56,14 +59,14 @@
             .star-rating label:hover ~ label {
                 color: #ffc107;
             }
+
     </style>
 </head>
 <body>
-    <div class="container-fluid full-height center-card">
-        <div class="card w-75">
+    <div class="container-fluid h-auto center-card" style="margin-top:20px;">
+        <div class="card w-75 ">
             <div class="card-header">
-                 <a asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left fa-fade fa-2xl"></i></a>  @Model.Food.Name
-            
+                <a asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left fa-fade fa-2xl"></i></a> @Model.Food.Name
             </div>
             <div class="card-body">
                 <div id="carouselExampleControls_@Model.Food.ID" class="carousel slide">
@@ -84,62 +87,61 @@
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@Model.Food.ID" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
-                    </button>     
+                    </button>
                 </div>
-                    <p class="card-text">@Model.Food.Materials </p>
-                    <p class="card-text">
-                        <i class="fa-solid fa-utensils"></i> @Model.Food.PreparationTime <br />
-                        <i class="fa-solid fa-kitchen-set"></i> @Model.Food.CookingTime <br />
-                        <i class="fa-solid fa-person"></i> @Model.Food.HowManyPerson
-                    </p>
-                    <p class="card-text">@Model.Food.RecipeExplanation</p>
+                <p class="card-text">@Model.Food.Materials </p>
+                <p class="card-text">
+                    <i class="fa-solid fa-utensils"></i> @Model.Food.PreparationTime <br />
+                    <i class="fa-solid fa-kitchen-set"></i> @Model.Food.CookingTime <br />
+                    <i class="fa-solid fa-person"></i> @Model.Food.HowManyPerson
+                </p>
+                <p class="card-text">@Model.Food.RecipeExplanation</p>
 
-                    <form asp-controller="Detail" asp-action="SaveComment" method="post">
-                        <div class="mb-2" style="border-top:inherit;">
-                            <label for="comment" class="form-label "><h4>Yorumunuz</h4></label>
+                <form asp-controller="Detail" asp-action="SaveComment" method="post" asp-route-id="@foodId">
+                    <div class="mb-2" style="border-top: inherit;">
+                        <label for="comment" class="form-label">
+                            <h4>Yorumunuz</h4>
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-text" asp-for="NewCommentTitle" placeholder="Başlığınızı yazın" />
+                        <div class="star-rating">
+                            <input type="radio" id="5-stars" name="Stars" value="5" asp-for="Stars" required />
+                            <label for="5-stars" class="fa fa-star"></label>
+                            <input type="radio" id="4-stars" name="Stars" value="4" asp-for="Stars" />
+                            <label for="4-stars" class="fa fa-star"></label>
+                            <input type="radio" id="3-stars" name="Stars" value="3" asp-for="Stars" />
+                            <label for="3-stars" class="fa fa-star"></label>
+                            <input type="radio" id="2-stars" name="Stars" value="2" asp-for="Stars" />
+                            <label for="2-stars" class="fa fa-star"></label>
+                            <input type="radio" id="1-star" name="Stars" value="1" asp-for="Stars" />
+                            <label for="1-star" class="fa fa-star"></label>
                         </div>
-                        <div class="mb-3">
-                                <input class="form-text" asp-for="NewCommentTitle" placeholder="Başlığınızı yazın"/>
-                            <div class="star-rating" >
-                                <input type="radio" id="5-stars" name="Rating" value="5" required asp-for="Stars"/>
-                                <label for="5-stars" class="fa fa-star"></label>
-                                <input type="radio" id="4-stars" name="Rating" value="4" asp-for="Stars" />
-                                <label for="4-stars" class="fa fa-star"></label>
-                                <input type="radio" id="3-stars" name="Rating" value="3" asp-for="Stars" />
-                                <label for="3-stars" class="fa fa-star"></label>
-                                <input type="radio" id="2-stars" name="Rating" value="2" asp-for="Stars" />
-                                <label for="2-stars" class="fa fa-star"></label>
-                                <input type="radio" id="1-star" name="Rating" value="1" asp-for="Stars" />
-                                <label for="1-star" class="fa fa-star"></label>
-                            </div>
-                                <textarea class="form-control" asp-for="NewCommentText" rows="3" placeholder="Yorumunuzu yazın"></textarea>
-                         </div>
-                         <button class="btn-success" type="submit">Kaydet</button>
-                    </form>
-                        <h4>Yorumlar</h4>
-                        @foreach (var comment in Model.Comments)
+                        <textarea class="form-control" asp-for="NewCommentText" rows="3" placeholder="Yorumunuzu yazın"></textarea>
+                    </div>
+                    <button class="btn-success" type="submit">Kaydet</button>
+                </form>
+                <h4>Yorumlar</h4>
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">@comment.CommentTitle</h5>
+                            <p class="card-subtitle mb-2 text-muted">@comment.CommentText</p>
+                        </div>
+                    </div>
+                    <div class="mb">
+                        @for (var i = 0; i < comment.Stars; i++)
                         {
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">@comment.CommentTitle</h5>
-                                    <p class="card-subtitle mb-2 text-muted">@comment.CommentText</p>
-                                    <p class=""></p>
-                                </div>
-                            </div>
-                            <div class="mb">
-                                @for (var i = 0; i < comment.Stars; i++)
-                                {
-                                    <i class="fa fa-star text-warning"></i>
-                                }
-                                @for (var i = comment.Stars; i < 5; i++)
-                                {
-                                    <i class="fa fa-star text-muted"></i>
-                                }
-                            </div>
-                        }  
+                            <i class="fa fa-star text-warning"></i>
+                        }
+                        @for (var i = comment.Stars; i < 5; i++)
+                        {
+                            <i class="fa fa-star text-muted"></i>
+                        }
+                    </div>
+                }
             </div>
-                
-               
         </div>
     </div>
 
@@ -147,5 +149,4 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 
