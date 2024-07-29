@@ -1,6 +1,7 @@
 ﻿@model FoodDetailVM
 @{
     var foodId = Model.Food.ID;
+    int CategoryID = ViewBag.CategoryID;
 }
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -64,11 +65,9 @@
 </head>
 <body>
     <div class="container-fluid h-auto center-card" style="margin-top:20px;">
-        <div class="card w-75 ">
+        <div class="card w-75">
             <div class="card-header">
-                    <a asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left fa-fade fa-2xl"></i></a> @Model.Food.Name
-
-
+                <a asp-action="FoodList" asp-controller="Category" asp-route-id="@CategoryID"><i class="fa-solid fa-arrow-left fa-fade fa-2xl"></i></a> @Model.Food.Name
             </div>
             <div class="card-body">
                 <div id="carouselExampleControls_@Model.Food.ID" class="carousel slide">
@@ -126,21 +125,21 @@
                 <h4>Yorumlar</h4>
                 @foreach (var comment in Model.Comments)
                 {
-                    <div class="card mb-3">
+                    <div class="card comment-card">
                         <div class="card-body">
                             <h5 class="card-title">@comment.CommentTitle</h5>
                             <p class="card-subtitle mb-2 text-muted">@comment.CommentText</p>
                         </div>
-                    </div>
-                    <div class="mb">
-                        @for (var i = 0; i < comment.Stars; i++)
-                        {
-                            <i class="fa fa-star text-warning"></i>
-                        }
-                        @for (var i = comment.Stars; i < 5; i++)
-                        {
-                            <i class="fa fa-star text-muted"></i>
-                        }
+                        <div>
+                            @for (var i = 0; i < comment.Stars; i++)
+                            {
+                                <i class="fa fa-star text-warning"></i>
+                            }
+                            @for (var i = comment.Stars; i < 5; i++)
+                            {
+                                <i class="fa fa-star text-muted"></i>
+                            }
+                        </div>
                     </div>
                 }
             </div>
@@ -151,4 +150,3 @@
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-

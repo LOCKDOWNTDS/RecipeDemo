@@ -1,25 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Recipe.BL.Manager.Abstract;
+using Recipe.Entities.DbContexts;
 using Recipe.Entities.Model.Concrete;
 using RecipeProjectMVC.Models.ViewModels;
 
 namespace RecipeProjectMVC.Controllers
 {
-    public class DetailController : Controller
+    public class DetailController(sqlContext context, IManager<Food, int> foodManager, IManager<Comments, int> commentsManager) : Controller
     {
-        private readonly IManager<Food, int> _foodManager;
-        private readonly IManager<Comments, int> _commentsManager;
 
-        public DetailController(IManager<Food, int> foodManager, IManager<Comments, int> commentsManager)
-        {
-            _foodManager = foodManager;
-            _commentsManager = commentsManager;
-        }
 
         public IActionResult Index(int id)
         {
-            var food = _foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures)
+            var food = foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures)
                                      .Include(p => p.Comments)
                                      .FirstOrDefault();
 
@@ -32,6 +26,7 @@ namespace RecipeProjectMVC.Controllers
             {
                 Food = food,
                 Comments = food.Comments.ToList()
+
             };
 
             return View(foodDetailVM);
@@ -53,10 +48,36 @@ namespace RecipeProjectMVC.Controllers
                 Stars = foodcomment.Stars,
             };
 
-            _commentsManager.Insert(newComment);
+            commentsManager.Insert(newComment);
 
             // Yorum eklendikten sonra yeniden Index aksiyonuna dön
             return RedirectToAction("Index", new { id = id });
         }
+
+
+        public IActionResult FromCategoryToDetail(int id)
+        {
+            var food = foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures)
+                                    .Include(p => p.Comments)
+                                    .FirstOrDefault();
+            var foodCategory = context.Foods.Include(p => p.Categorys).ThenInclude(p => p.Category).FirstOrDefault(p => p.ID == id);
+            ViewBag.CategoryID = foodCategory.Categorys.Select(p => p.CategoryId).FirstOrDefault();
+
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+
+            var foodDetailVM = new FoodDetailVM
+            {
+                Food = food,
+                Comments = food.Comments.ToList()
+
+            };
+
+            return View(foodDetailVM);
+        }
+
     }
 }
