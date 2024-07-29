@@ -1,0 +1,86 @@
+﻿@model List<Category>
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Layout</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-inner img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card {
+            margin-bottom: 1rem;
+        }
+
+        .container-fluid {
+            margin-top: 4%;
+        }
+
+        .background {
+            background-image: url('img/food-cooking-background-on-white-table-2JDWXK5.png');
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card-container {
+            border-radius: 20px;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .card-text p {
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="background">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+                
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                    <a asp-route-id="@item.ID" asp-action="FoodList" asp-controller="Category">
+                            <div class="card card-container">
+                                @{
+                                    string photoPath = item.CategoryPhotoPath.Replace("~", "");
+                                }
+
+                                <img class="card-img-top" src="@photoPath" alt="Card image">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">@item.CategoryName</h5>
+                                </div>
+                            </div>
+                         </a>
+                    </div>
+
+                
+            }
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

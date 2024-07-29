@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Recipe.Entities.DbContexts;
 
@@ -11,9 +12,11 @@ using Recipe.Entities.DbContexts;
 namespace Recipe.Entities.Migrations
 {
     [DbContext(typeof(sqlContext))]
-    partial class sqlContextModelSnapshot : ModelSnapshot
+    [Migration("20240729124749_AddedPhotoPathInCategory")]
+    partial class AddedPhotoPathInCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 292, DateTimeKind.Utc).AddTicks(1884));
+                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 47, 48, 654, DateTimeKind.Utc).AddTicks(7236));
 
                     b.HasKey("ID");
 
@@ -57,63 +60,54 @@ namespace Recipe.Entities.Migrations
                         {
                             ID = 1,
                             CategoryName = "Bakliyat Yemekleri",
-                            CategoryPhotoPath = "~/img/cat1.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 2,
                             CategoryName = "Çorba Tarifleri",
-                            CategoryPhotoPath = "~/img/cat2.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 3,
                             CategoryName = "Dolma-Sarma Tarifleri",
-                            CategoryPhotoPath = "~/img/cat3.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 4,
                             CategoryName = "Et Yemekleri",
-                            CategoryPhotoPath = "~/img/cat4.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 5,
                             CategoryName = "Hamur İşi Tarifleri",
-                            CategoryPhotoPath = "~/img/cat5.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 6,
                             CategoryName = "Kahvaltılık Tarifleri",
-                            CategoryPhotoPath = "~/img/cat6.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 7,
                             CategoryName = "Makarna Tarifleri",
-                            CategoryPhotoPath = "~/img/cat7.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 8,
                             CategoryName = "Sebze Yemekleri",
-                            CategoryPhotoPath = "~/img/cat8.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 9,
                             CategoryName = "Tatlı Tarifleri",
-                            CategoryPhotoPath = "~/img/cat9.jpg",
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -466,7 +460,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 293, DateTimeKind.Utc).AddTicks(3405));
+                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 47, 48, 655, DateTimeKind.Utc).AddTicks(7809));
 
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
@@ -504,7 +498,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 293, DateTimeKind.Utc).AddTicks(8977));
+                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 47, 48, 656, DateTimeKind.Utc).AddTicks(2823));
 
                     b.Property<string>("HowManyPerson")
                         .IsRequired()
@@ -1217,7 +1211,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 294, DateTimeKind.Utc).AddTicks(2389));
+                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 47, 48, 656, DateTimeKind.Utc).AddTicks(5661));
 
                     b.Property<string>("inf")
                         .IsRequired()
@@ -1335,7 +1329,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 295, DateTimeKind.Utc).AddTicks(3834));
+                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 47, 48, 657, DateTimeKind.Utc).AddTicks(6450));
 
                     b.Property<int?>("FoodId")
                         .HasColumnType("int");
