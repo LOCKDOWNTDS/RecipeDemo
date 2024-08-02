@@ -1,31 +1,124 @@
-﻿@model DailyMenuVM 
+﻿@model DailyMenuVM
 @{
 }
+<head>
+    <style>
+        .carousel-item img {
+            width: 100%;
+            height: 200px; /* İstediğiniz sabit yüksekliği belirleyin */
+            object-fit: cover; /* Resimlerin taşmamasını sağlar ve kırpma yapar */
+        }
+        .row{
+            margin-top:20px;
+        }
+        body {
+            background-color: rgba(211, 211, 211, 0.25);
+        }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
+        .card-body {
+            margin-bottom: 10px; /* Kartlar arasındaki boşluğu azaltır */
+            padding: 0;
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .card {
+            margin-bottom: 1rem; /* Kartlar arasındaki boşlukları azaltır */
+            margin-right: 10px; /* Kartlar arasındaki sağ boşluk */
+            margin-left: 10px; /* Kartlar arasındaki sol boşluk */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h2 class="card-title text-center" style="margin-top:20px;">24 Saatlik Menü</h2>
+        <div class="row justify-content-center">
             <!-- İlk Kart -->
-            <div class="card mb-3">
+            <div class="card col-md-3 col-lg-3 col-sm-12">
+                <div id="carouselExampleControls_@Model.Soap.Food.ID" class="carousel slide">
+                    <div class="carousel-inner">
+                        @for (var j = 0; j < Model.Soap.Food.OtherPictures.Count; j++)
+                        {
+                            var picture = Model.Soap.Food.OtherPictures[j];
+                            var photoPath = picture.PhotoPath.Replace("~", "");
+                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                <img src="@photoPath" class="d-block w-100" alt="...">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@Model.Soap.Food.ID" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@Model.Soap.Food.ID" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Card 1</h5>
-                    <p class="card-text">This is the content of the first card.</p>
+                    <h5 class="card-title text-center">@Model.Soap.Food.Name</h5>
+                    <a asp-controller="Detail" asp-route-id="@Model.Soap.Food.ID" asp-action="FromFoodSuggestion" class="btn btn-primary mx-auto d-block justify-content-md-center " style="margin-bottom:-9px;">Detay</a>
                 </div>
             </div>
             <!-- İkinci Kart -->
-            <div class="card mb-3">
+            <div class="card col-md-3 col-lg-3 col-sm-12">
+                <div id="carouselExampleControls_@Model.Main.Food.ID" class="carousel slide">
+                    <div class="carousel-inner">
+                        @for (var j = 0; j < Model.Main.Food.OtherPictures.Count; j++)
+                        {
+                            var picture = Model.Main.Food.OtherPictures[j];
+                            var photoPath = picture.PhotoPath.Replace("~", "");
+                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                <img src="@photoPath" class="d-block w-100" alt="...">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@Model.Main.Food.ID" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@Model.Main.Food.ID" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Card 2</h5>
-                    <p class="card-text">This is the content of the second card.</p>
+                    <h5 class="card-title text-center">@Model.Main.Food.Name</h5>
+                    <a asp-controller="Detail" asp-route-id="@Model.Main.Food.ID" asp-action="FromFoodSuggestion" class="btn btn-primary mx-auto d-block justify-content-md-center " style="margin-bottom:-9px;">Detay</a>
                 </div>
             </div>
             <!-- Üçüncü Kart -->
-            <div class="card mb-3">
+            <div class="card col-md-3 col-lg-3 col-sm-12">
+                <div id="carouselExampleControls_@Model.Dessert.Food.ID" class="carousel slide">
+                    <div class="carousel-inner">
+                        @for (var j = 0; j < Model.Dessert.Food.OtherPictures.Count; j++)
+                        {
+                            var picture = Model.Dessert.Food.OtherPictures[j];
+                            var photoPath = picture.PhotoPath.Replace("~", "");
+                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                <img src="@photoPath" class="d-block w-100" alt="...">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls_@Model.Dessert.Food.ID" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls_@Model.Dessert.Food.ID" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Card 3</h5>
-                    <p class="card-text">This is the content of the third card.</p>
+                    <h5 class="card-title text-center">@Model.Dessert.Food.Name</h5>
+                    <a asp-controller="Detail" asp-route-id="@Model.Dessert.Food.ID" asp-action="FromFoodSuggestion" class="btn btn-primary mx-auto d-block justify-content-md-center " style="margin-bottom:-9px;">Detay</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</body>

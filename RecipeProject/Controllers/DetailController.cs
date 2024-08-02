@@ -79,5 +79,29 @@ namespace RecipeProjectMVC.Controllers
             return View(foodDetailVM);
         }
 
+        public IActionResult FromFoodSuggestion(int id)
+        {
+            var food = foodManager.GetAllInclude(p => p.ID == id, p => p.OtherPictures)
+                                  .Include(p => p.Comments)
+                                  .FirstOrDefault();
+            var foodCategory = context.Foods.Include(p => p.Categorys).ThenInclude(p => p.Category).FirstOrDefault(p => p.ID == id);
+            ViewBag.CategoryID = foodCategory.Categorys.Select(p => p.CategoryId).FirstOrDefault();
+
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+
+            var foodDetailVM = new FoodDetailVM
+            {
+                Food = food,
+                Comments = food.Comments.ToList()
+
+            };
+
+            return View(foodDetailVM);
+        }
+
     }
 }
