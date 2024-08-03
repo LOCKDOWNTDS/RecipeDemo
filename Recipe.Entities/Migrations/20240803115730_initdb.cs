@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Recipe.Entities.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class initdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,8 @@ namespace Recipe.Entities.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 7, 21, 11, 30, 50, 548, DateTimeKind.Utc).AddTicks(8793))
+                    CategoryPhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 230, DateTimeKind.Utc).AddTicks(3539))
                 },
                 constraints: table =>
                 {
@@ -31,21 +32,34 @@ namespace Recipe.Entities.Migrations
                 name: "Foods",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Materials = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    ID = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Materials = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Like = table.Column<int>(type: "int", maxLength: 50, nullable: true),
-                    HowManyPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    PreparationTime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    CookingTime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    HowManyPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PreparationTime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CookingTime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PictureOne = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RecipeExplanation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 7, 21, 11, 30, 50, 550, DateTimeKind.Utc).AddTicks(4176))
+                    RecipeExplanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(2952))
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Foods", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Infos",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    inf = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(6196))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Infos", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,7 +113,7 @@ namespace Recipe.Entities.Migrations
                     CommentText = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Stars = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     FoodId = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 7, 21, 11, 30, 50, 549, DateTimeKind.Utc).AddTicks(9327))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 231, DateTimeKind.Utc).AddTicks(7134))
                 },
                 constraints: table =>
                 {
@@ -122,7 +136,7 @@ namespace Recipe.Entities.Migrations
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FoodId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 7, 21, 11, 30, 50, 550, DateTimeKind.Utc).AddTicks(7099))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 233, DateTimeKind.Utc).AddTicks(9006))
                 },
                 constraints: table =>
                 {
@@ -141,18 +155,18 @@ namespace Recipe.Entities.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "ID", "CategoryName" },
+                columns: new[] { "ID", "CategoryName", "CategoryPhotoPath" },
                 values: new object[,]
                 {
-                    { 1, "Bakliyat Yemekleri" },
-                    { 2, "Çorba Tarifleri" },
-                    { 3, "Dolma-Sarma Tarifleri" },
-                    { 4, "Et Yemekleri" },
-                    { 5, "Hamur İşi Tarifleri" },
-                    { 6, "Kahvaltılık Tarifleri" },
-                    { 7, "Makarna Tarifleri" },
-                    { 8, "Sebze Yemekleri" },
-                    { 9, "Tatlı Tarifleri" }
+                    { 1, "Bakliyat Yemekleri", "~/img/cat1.jpg" },
+                    { 2, "Çorba Tarifleri", "~/img/cat2.jpg" },
+                    { 3, "Dolma-Sarma Tarifleri", "~/img/cat3.jpg" },
+                    { 4, "Et Yemekleri", "~/img/cat4.jpg" },
+                    { 5, "Hamur İşi Tarifleri", "~/img/cat5.jpg" },
+                    { 6, "Kahvaltılık Tarifleri", "~/img/cat6.jpg" },
+                    { 7, "Makarna Tarifleri", "~/img/cat7.jpg" },
+                    { 8, "Sebze Yemekleri", "~/img/cat8.jpg" },
+                    { 9, "Tatlı Tarifleri", "~/img/cat9.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -171,7 +185,7 @@ namespace Recipe.Entities.Migrations
                     { 9, "20 dakika", "4 kişilik", null, "Tavuk suyu, arpa şehriye, domates salçası, tereyağı, su, tuz, karabiber", "Şehriye Çorbası", null, "5 dakika", "Tereyağında salçayı kavurun. Tavuk suyu ve su ekleyip kaynatın, şehriyeleri ekleyip pişirin." },
                     { 10, "30 dakika", "4 kişilik", null, "Balkabağı, soğan, patates, krema, su, tuz, karabiber, zeytinyağı", "Kremalı Balkabağı Çorbası", null, "10 dakika", "Soğanı kavurun, balkabağı ve patatesi ekleyin. Suyu ekleyip haşlayın, blenderdan geçirin ve krema ekleyin." },
                     { 11, "60+ dakika", "4 kişilik", null, "Nohut, soğan, domates, biber, zeytinyağı, tuz, karabiber", "Nohut Yemeği", null, "15 dakika", "Nohutları haşlayın, soğan ve biberi kavurun, domatesleri ekleyin. Haşlanmış nohutları ekleyin ve pişirin." },
-                    { 12, null, null, null, null, null, null, null, null },
+                    { 12, "2 saat", "10 kişilik", null, "Buğday, nohut, kuru fasulye, kuru kayısı, kuru incir, kuru üzüm, ceviz, fındık, nar, su, şeker", "Aşure", null, "30 dakika", "Buğday, nohut ve kuru fasulyeyi ayrı ayrı haşlayın. Kuru kayısı, kuru incir ve kuru üzümü küçük doğrayın. Tüm malzemeleri büyük bir tencereye alın, su ekleyin ve kaynatın. Şekeri ekleyin ve karıştırarak pişirin. Aşure kıvamına gelince ocaktan alın ve kaselere dökün. Üzerini ceviz, fındık ve nar ile süsleyerek soğuk servis yapın." },
                     { 13, "30 dakika", "4 kişilik", null, "Bezelye, patates, havuç, soğan, zeytinyağı, tuz, karabiber", "Bezelye Yemeği", null, "10 dakika", "Soğanı kavurun, patates ve havucu ekleyin. Bezelyeleri ve suyu ekleyip pişirin." },
                     { 14, "60+ dakika", "4 kişilik", null, "Fasulye, soğan, domates, havuç, zeytinyağı, tuz, şeker", "Fasulye Pilaki", null, "15 dakika", "Fasulyeleri haşlayın, soğan ve havucu kavurun. Domatesleri ekleyip fasulyeleri ekleyin ve pişirin." },
                     { 15, "60+ dakika", "4 kişilik", null, "Kuru fasulye, soğan, domates, biber, zeytinyağı, tuz, karabiber", "Kuru Fasulye", null, "15 dakika", "Kuru fasulyeleri haşlayın, soğan ve biberi kavurun. Domatesleri ekleyip fasulyeleri ekleyin ve pişirin." },
@@ -203,7 +217,7 @@ namespace Recipe.Entities.Migrations
                     { 41, "15 dakika", "4 kişilik", null, "Domates, yeşil biber, yumurta, zeytinyağı, tuz, karabiber", "Menemen", null, "10 dakika", "Biberleri ve domatesleri zeytinyağında kavurun, yumurtaları ekleyip karıştırarak pişirin." },
                     { 42, "10 dakika", "2 kişilik", null, "Yumurta, tereyağı, tuz, karabiber", "Sahanda Yumurta", null, "5 dakika", "Tereyağında yumurtaları kırıp pişirin. Tuz ve karabiberle tatlandırın." },
                     { 43, "0 dakika", "4 kişilik", null, "Çeşitli peynirler (beyaz peynir, kaşar, lor), zeytin, domates, salatalık, zeytinyağı", "Kahvaltılık Peynir Tabağı", null, "10 dakika", "Peynirleri dilimleyip tabağa yerleştirin. Zeytin, domates ve salatalık ekleyin." },
-                    { 44, null, null, null, null, null, null, null, null },
+                    { 44, "10 dakika", "6 kişilik", null, "Güllaç yaprağı, süt, şeker, gül suyu, ceviz, nar", "Güllaç", null, "20 dakika", "Sütü ve şekeri ısıtın. Güllaç yapraklarını sütle ıslatarak üst üste dizin. Aralarına ceviz serpin. Gül suyu ekleyin. Üzerine nar taneleri ile süsleyin ve soğuk servis yapın." },
                     { 45, "10 dakika", "2 kişilik", null, "Sosis, yumurta, tereyağı, tuz, karabiber", "Yumurtalı Sosis", null, "5 dakika", "Sosisleri tereyağında kızartın. Üzerine yumurtayı kırıp pişirin, tuz ve karabiberle tatlandırın." },
                     { 46, "20 dakika", "4 kişilik", null, "Spaghetti, yumurta, parmesan peyniri, pastırma, sarımsak, zeytinyağı, tuz, karabiber", "Spaghetti Carbonara", null, "15 dakika", "Spaghettiyi haşlayın. Pastırmayı ve sarımsağı zeytinyağında kavurun, yumurta ve peynir karışımını ekleyin. Spaghettiyi karışıma ekleyip karıştırın." },
                     { 47, "15 dakika", "4 kişilik", null, "Fettucine, tereyağı, krema, parmesan peyniri, sarımsak, tuz, karabiber", "Fettucine Alfredo", null, "10 dakika", "Fettucineyi haşlayın. Tereyağını eritip kremayı ekleyin, peynirle karıştırın. Sosu makarnaya döküp karıştırın." },
@@ -211,7 +225,7 @@ namespace Recipe.Entities.Migrations
                     { 49, "30 dakika", "4 kişilik", null, "Makarna, cheddar peyniri, süt, tereyağı, un, tuz, karabiber, muskat cevizi", "Mac and Cheese", null, "10 dakika", "Makarna haşlanır. Sos için tereyağı ve unu kavurun, süt ekleyip koyulaşana kadar pişirin. Peynirleri ekleyip eritin. Sosu makarnaya dökün, fırında 15 dakika pişirin." },
                     { 50, "45 dakika", "4 kişilik", null, "Makarna, kıyma, domates sosu, soğan, sarımsak, havuç, kereviz, zeytinyağı, tuz, karabiber, kekik", "Bolognese Soslu Makarna", null, "15 dakika", "Kıymayı soğan, sarımsak, havuç ve kereviz ile kavurun. Domates sosunu ekleyip kısık ateşte pişirin. Makarnayı haşlayıp sosla karıştırın." },
                     { 51, "40 dakika", "4 kişilik", null, "Enginar, zeytinyağı, limon, soğan, havuç, bezelye, tuz, karabiber, dereotu", "Zeytinyağlı Enginar", null, "20 dakika", "Enginarları limonlu suya bekletin. Soğanı ve havucu zeytinyağında kavurun. Enginarları ekleyip bezelye ve su ilave edin. Piştikten sonra dereotu ile süsleyin." },
-                    { 52, null, null, null, null, null, null, null, null },
+                    { 52, "20 dakika", "6 kişilik", null, "Kadayıf, tuzsuz peynir, tereyağı, şeker, su, limon", "Künefe", null, "30 dakika", "Kadayıfı tereyağı ile karıştırın ve yarısını tepsiye yayın. Üzerine peyniri koyun ve kalan kadayıfı üzerine kapatın. Orta ateşte altın rengi alana kadar pişirin. Şerbet için şeker, su ve limonu kaynatın ve sıcak künefenin üzerine dökün." },
                     { 53, "30 dakika", "4 kişilik", null, "Patates, soğan, domates, biber, zeytinyağı, tuz, karabiber, pul biber", "Patates Yemeği", null, "15 dakika", "Patatesleri ve soğanları doğrayıp zeytinyağında kavurun. Domates ve biberleri ekleyin, baharatlarla tatlandırın. Kısık ateşte pişirin." },
                     { 54, "25 dakika", "4 kişilik", null, "Kabak, zeytinyağı, sarımsak, tuz, karabiber, kekik, parmesan peyniri", "Fırında Kabak", null, "10 dakika", "Kabları dilimleyip zeytinyağı, sarımsak ve baharatlarla harmanlayın. Fırın tepsisine dizip parmesan peyniri serpin, fırında pişirin." },
                     { 55, "20 dakika", "4 kişilik", null, "Karnabahar, un, yumurta, tuz, karabiber, sıvı yağ", "Karnabahar Kızartması", null, "15 dakika", "Karnabaharları çiçeklerine ayırın. Un ve yumurtaya bulayıp sıvı yağda kızartın. Tuz ve karabiber ile tatlandırın." },
@@ -220,6 +234,23 @@ namespace Recipe.Entities.Migrations
                     { 58, "60+ dakika", "4 kişilik", null, "Patates, tereyağı, kaşar peyniri, zeytin, mısır, sosis, mayonez, ketçap, tuz", "Kumpir", null, "15 dakika", "Patatesleri fırında pişirin. Kumpirleri kesip içlerini tereyağı ve kaşar ile karıştırın. Üzerine zeytin, mısır, sosis ve sosları ekleyin." },
                     { 59, "30 dakika", "8 kişilik", null, "Yumurta, şeker, un, irmik, yoğurt, kabartma tozu, limon suyu, şeker", "Revani", null, "15 dakika", "Yumurta ve şekeri çırpın, diğer malzemeleri ekleyip karıştırın. Fırında pişirin ve soğuduktan sonra şerbet dökün." },
                     { 60, "20 dakika", "4 kişilik", null, "Süt, şeker, kakao, nişasta, vanilin", "Puding", null, "10 dakika", "Süt, şeker ve kakao karışımını kaynatın. Nişasta ve vanilini ekleyip karıştırarak pişirin. Kaselere döküp soğutun." }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Infos",
+                columns: new[] { "ID", "inf" },
+                values: new object[,]
+                {
+                    { 1, "Yemeklerin lezzeti büyük ölçüde kullanılan malzemelerin kalitesine bağlıdır. Taze ve kaliteli malzemeler kullanmaya özen gösterin." },
+                    { 2, "Tarife sadık kalmak, doğru miktarda malzeme kullanmak önemlidir. Özellikle tuz, baharat ve şeker gibi tatları dikkatlice ölçün." },
+                    { 3, "Yemek yapmaya başlamadan önce tüm malzemeleri hazırlayın. Bu, yemek yapma sürecini daha düzenli ve hızlı hale getirir." },
+                    { 4, "Pişirme sırasında ısıyı doğru ayarlamak önemlidir. Kısık ateşte pişirilen yemekler genellikle daha lezzetli ve dengeli olur." },
+                    { 5, "Baharatları yemeklerin pişirme sürecinin başında değil, genellikle sonlarına doğru eklemek, baharatların aromasını kaybetmesini engeller." },
+                    { 6, "Pişirdiğiniz yemekleri servisten önce bir süre dinlendirmek, lezzetlerin birbirine karışmasına ve yemeklerin daha iyi bir tat profilinin oluşmasına yardımcı olur." },
+                    { 7, "Yemekleri gereğinden fazla pişirmek lezzetlerini kaybettirebilir. Tarife göre önerilen süreleri dikkate alın ve pişirme süresini kontrol edin." },
+                    { 8, "Yemeklerde tuz ve şeker miktarını dengelemek önemlidir. Tatları dengede tutmak için küçük miktarlarda ekleyin ve tadına bakarak ayarlayın." },
+                    { 9, "Sosları yemeklerin üzerine dökmeden önce, sosun kıvamını ve tadını kontrol edin. Sosları yemekle aynı anda pişirmek, daha iyi bir uyum sağlar." },
+                    { 10, "Yemeklerin sunumu da en az lezzeti kadar önemlidir. Güzel bir sunum, yemeklerin tadını daha da artırabilir ve iştah açıcı hale getirebilir." }
                 });
 
             migrationBuilder.InsertData(
@@ -281,6 +312,9 @@ namespace Recipe.Entities.Migrations
                     { 8, 53 },
                     { 8, 54 },
                     { 8, 55 },
+                    { 9, 12 },
+                    { 9, 44 },
+                    { 9, 52 },
                     { 9, 56 },
                     { 9, 57 },
                     { 9, 58 },
@@ -312,10 +346,73 @@ namespace Recipe.Entities.Migrations
                     { 17, 9, "~/img/9.1.jpg", null },
                     { 18, 9, "~/img/9.2.jpg", null },
                     { 19, 10, "~/img/10.1.jpg", null },
-                    { 20, 10, "~/img/10.2.jpg", null },
                     { 21, 11, "~/img/11.1.jpg", null },
                     { 22, 13, "~/img/13.1.jpg", null },
-                    { 23, 14, "~/img/14.1.jpg", null }
+                    { 23, 14, "~/img/14.1.jpg", null },
+                    { 24, 15, "~/img/15.1.jpg", null },
+                    { 25, 15, "~/img/15.2.jpg", null },
+                    { 26, 16, "~/img/16.1.jpg", null },
+                    { 27, 16, "~/img/16.2.jpg", null },
+                    { 28, 17, "~/img/17.1.jpg", null },
+                    { 29, 18, "~/img/18.1.jpg", null },
+                    { 30, 19, "~/img/19.1.jpg", null },
+                    { 31, 20, "~/img/20.1.jpg", null },
+                    { 32, 21, "~/img/21.1.jpg", null },
+                    { 33, 22, "~/img/22.1.jpg", null },
+                    { 34, 23, "~/img/23.1.jpg", null },
+                    { 35, 23, "~/img/23.2.jpg", null },
+                    { 36, 24, "~/img/24.1.jpg", null },
+                    { 37, 24, "~/img/24.2.jpg", null },
+                    { 38, 25, "~/img/25.1.jpg", null },
+                    { 39, 25, "~/img/25.2.jpg", null },
+                    { 40, 26, "~/img/26.1.jpg", null },
+                    { 41, 27, "~/img/27.1.jpg", null },
+                    { 42, 28, "~/img/28.1.jpg", null },
+                    { 43, 29, "~/img/29.1.jpg", null },
+                    { 44, 30, "~/img/30.1.jpg", null },
+                    { 45, 31, "~/img/31.1.jpg", null },
+                    { 46, 31, "~/img/31.2.jpg", null },
+                    { 47, 32, "~/img/32.1.jpg", null },
+                    { 48, 33, "~/img/33.1.jpg", null },
+                    { 49, 33, "~/img/33.2.jpg", null },
+                    { 50, 34, "~/img/34.1.jpg", null },
+                    { 51, 34, "~/img/34.2.jpg", null },
+                    { 52, 35, "~/img/35.1.jpg", null },
+                    { 53, 36, "~/img/36.1.jpg", null },
+                    { 54, 36, "~/img/36.2.jpg", null },
+                    { 55, 37, "~/img/37.1.jpg", null },
+                    { 56, 37, "~/img/37.2.jpg", null },
+                    { 57, 38, "~/img/38.1.jpg", null },
+                    { 58, 39, "~/img/39.1.jpg", null },
+                    { 59, 40, "~/img/40.1.jpg", null },
+                    { 60, 41, "~/img/41.1.jpg", null },
+                    { 61, 42, "~/img/42.1.jpg", null },
+                    { 62, 42, "~/img/42.2.jpg", null },
+                    { 63, 43, "~/img/43.1.jpg", null },
+                    { 64, 44, "~/img/44.1.jpg", null },
+                    { 65, 45, "~/img/45.1.jpg", null },
+                    { 66, 46, "~/img/46.1.jpg", null },
+                    { 67, 47, "~/img/47.1.jpg", null },
+                    { 68, 47, "~/img/47.2.jpg", null },
+                    { 69, 48, "~/img/48.1.jpg", null },
+                    { 70, 48, "~/img/48.2.jpg", null },
+                    { 71, 49, "~/img/49.1.jpg", null },
+                    { 72, 49, "~/img/49.2.jpg", null },
+                    { 73, 50, "~/img/50.1.jpg", null },
+                    { 74, 50, "~/img/50.2.jpg", null },
+                    { 75, 51, "~/img/51.1.jpg", null },
+                    { 76, 52, "~/img/52.1.jpg", null },
+                    { 77, 53, "~/img/53.1.jpg", null },
+                    { 78, 54, "~/img/54.1.jpg", null },
+                    { 79, 55, "~/img/55.1.jpg", null },
+                    { 80, 56, "~/img/56.1.jpg", null },
+                    { 81, 56, "~/img/56.2.jpg", null },
+                    { 82, 57, "~/img/57.1.jpg", null },
+                    { 83, 57, "~/img/57.2.jpg", null },
+                    { 84, 58, "~/img/58.1.jpg", null },
+                    { 86, 59, "~/img/58.1.jpg", null },
+                    { 87, 60, "~/img/60.1.jpg", null },
+                    { 88, 12, "~/img/12.1.jpg", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -350,6 +447,11 @@ namespace Recipe.Entities.Migrations
                 column: "ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Infos_ID",
+                table: "Infos",
+                column: "ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_FoodId",
                 table: "Photos",
                 column: "FoodId");
@@ -375,6 +477,9 @@ namespace Recipe.Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Infos");
 
             migrationBuilder.DropTable(
                 name: "Photos");

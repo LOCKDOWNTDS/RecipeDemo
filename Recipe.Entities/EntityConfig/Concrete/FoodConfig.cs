@@ -16,6 +16,7 @@ namespace Recipe.Entities.EntityConfig.Concrete
             builder.Property(p => p.CookingTime).HasMaxLength(50);
             builder.Property(p => p.PreparationTime).HasMaxLength(50);
             builder.Property(p => p.HowManyPerson).HasMaxLength(50);
+            builder.Property(p => p.ID).ValueGeneratedNever();
             builder.HasData(
 
                 new Food

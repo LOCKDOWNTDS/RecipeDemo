@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Recipe.BL.Manager.Abstract;
+using Recipe.Entities.DbContexts;
 using Recipe.Entities.Model.Concrete;
 using RecipeProjectMVC.Models.ViewModels;
 
@@ -10,24 +11,33 @@ namespace RecipeProjectMVC.Controllers
         private readonly IManager<Food, int> _foodManager;
         private readonly IManager<Category, int> _categoryManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly sqlContext _context;
 
-        public FoodInsertController(IManager<Food, int> foodManager, IManager<Category, int> categoryManager, IWebHostEnvironment webHostEnvironment)
+        public FoodInsertController(IManager<Food, int> foodManager, IManager<Category, int> categoryManager, IWebHostEnvironment webHostEnvironment, sqlContext context)
         {
             _foodManager = foodManager;
             _categoryManager = categoryManager;
             _webHostEnvironment = webHostEnvironment;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             ViewBag.kategori = _categoryManager.GetAll();
-            return View();
+            int lastFoodId = _context.Foods.OrderByDescending(x => x.ID).Select(p => p.ID).FirstOrDefault();
+            var newID = new FoodInsertVM()
+            {
+                LastID = lastFoodId
+            };
+
+
+            return View(newID);
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveFood(FoodInsertVM foodVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
 
                 List<string> imagespaths = new List<string>();
@@ -46,6 +56,7 @@ namespace RecipeProjectMVC.Controllers
                 var selectedCategorys = foodVM.SelectedCategoryIds;
                 Food food = new Food
                 {
+                    ID = foodVM.LastID + 1,
                     Name = foodVM.Name,
                     Materials = foodVM.Materials,
                     HowManyPerson = foodVM.HowManyPerson,
@@ -61,8 +72,7 @@ namespace RecipeProjectMVC.Controllers
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                return Json(new { success = false, message = string.Join(" ", errors) });
+                return Json(new { success = false, message = "Hata." });
             }
         }
         private async Task<string> SaveImage(IFormFile file)

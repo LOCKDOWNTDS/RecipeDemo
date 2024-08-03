@@ -39,4 +39,7 @@ public class FoodInsertVM
 
     [Required(ErrorMessage = "Lütfen bir kategori seçin")]
     public List<int> SelectedCategoryIds { get; set; } // Kategori ID
+
+
+    public int LastID { get; set; }
 }

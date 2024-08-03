@@ -41,7 +41,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 292, DateTimeKind.Utc).AddTicks(1884));
+                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 230, DateTimeKind.Utc).AddTicks(3539));
 
                     b.HasKey("ID");
 
@@ -466,7 +466,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 293, DateTimeKind.Utc).AddTicks(3405));
+                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 231, DateTimeKind.Utc).AddTicks(7134));
 
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
@@ -491,10 +491,7 @@ namespace Recipe.Entities.Migrations
             modelBuilder.Entity("Recipe.Entities.Model.Concrete.Food", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("CookingTime")
                         .IsRequired()
@@ -504,7 +501,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 293, DateTimeKind.Utc).AddTicks(8977));
+                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(2952));
 
                     b.Property<string>("HowManyPerson")
                         .IsRequired()
@@ -1217,7 +1214,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 294, DateTimeKind.Utc).AddTicks(2389));
+                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(6196));
 
                     b.Property<string>("inf")
                         .IsRequired()
@@ -1335,7 +1332,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 29, 12, 58, 14, 295, DateTimeKind.Utc).AddTicks(3834));
+                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 233, DateTimeKind.Utc).AddTicks(9006));
 
                     b.Property<int?>("FoodId")
                         .HasColumnType("int");
