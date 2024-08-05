@@ -13,13 +13,16 @@ namespace RecipeProjectMVC.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly sqlContext _context;
 
-        public FoodInsertController(IManager<Food, int> foodManager, IManager<Category, int> categoryManager, IWebHostEnvironment webHostEnvironment, sqlContext context)
+        public FoodInsertController(IManager<Food, int> foodManager, IManager<Category, int> categoryManager,
+            IWebHostEnvironment webHostEnvironment,
+            sqlContext context)
         {
             _foodManager = foodManager;
             _categoryManager = categoryManager;
             _webHostEnvironment = webHostEnvironment;
             _context = context;
         }
+
 
         public IActionResult Index()
         {
@@ -39,13 +42,11 @@ namespace RecipeProjectMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 List<string> imagespaths = new List<string>();
 
                 // PictureOne dosyasını kaydet
                 if (foodVM.OtherPictures != null)
                 {
-
                     foreach (var item in foodVM.OtherPictures)
                     {
                         string imagepath = await SaveImage(item);
@@ -68,17 +69,32 @@ namespace RecipeProjectMVC.Controllers
                 };
 
                 var result = _foodManager.Insert(food);
-                return Json(new { success = true, message = "Form başarıyla kaydedildi." });
+
+                TempData["Message"] = "Form başarıyla kaydedildi.";
+                return RedirectToAction("Index");
             }
             else
             {
-                return Json(new { success = false, message = "Hata." });
+                TempData["Message"] = "Hata.";
+                return RedirectToAction("Index");
             }
         }
+
         private async Task<string> SaveImage(IFormFile file)
         {
+            // Dosya uzantısını kontrol et
+            var allowedExtensions = new List<string> { ".jpg", ".jpeg", ".png" };
+            var fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                throw new InvalidOperationException("Geçersiz dosya uzantısı.");
+            }
+
+            // Dosya adını ve uzantısını yeniden düzenle
+            var uniqueFileName = Guid.NewGuid().ToString() + fileExtension;
+
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "img");
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -89,5 +105,11 @@ namespace RecipeProjectMVC.Controllers
             return "/img/" + uniqueFileName;
         }
 
+
+
     }
 }
+
+
+
+

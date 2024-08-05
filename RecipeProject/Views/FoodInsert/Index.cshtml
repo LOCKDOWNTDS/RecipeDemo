@@ -1,7 +1,15 @@
 ﻿@model FoodInsertVM
 @{
+     ViewData["Title"] = "Index";
     var Category = ViewBag.kategori as List<Category>;
+    if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info" id="alertMessage">
+            @TempData["Message"]
+        </div>
+    }
 }
+
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -51,6 +59,7 @@
         }
     </style>
 </head>
+
 <body id="Mainback">
     <div class="container-fluid" id="ContainerBackground">
         <form asp-action="SaveFood" asp-controller="FoodInsert" method="post" enctype="multipart/form-data" id="foodForm">
@@ -180,7 +189,7 @@
         </form>
     </div>
 
-    <script>
+   @*  <script>
         $(document).ready(function () {
             $("#buttonsave").click(function (event) {
                 event.preventDefault(); // Formun varsayılan gönderimini engeller
@@ -204,5 +213,16 @@
                 
             });
         });
+    </script> *@
+
+    <script>
+        // Sayfa yüklendiğinde çalıştır
+        $(document).ready(function () {
+            // Alert mesajını 5 saniye sonra gizle
+            setTimeout(function () {
+                $('#alertMessage').fadeOut('slow');
+            }, 3000); // 5000 milisaniye = 5 saniye
+        });
     </script>
+
 </body>
