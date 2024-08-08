@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Recipe.Entities.Migrations
 {
     /// <inheritdoc />
-    public partial class initdb : Migration
+    public partial class initDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace Recipe.Entities.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CategoryPhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 230, DateTimeKind.Utc).AddTicks(3539))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 370, DateTimeKind.Utc).AddTicks(7745))
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace Recipe.Entities.Migrations
                     CookingTime = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PictureOne = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RecipeExplanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(2952))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 374, DateTimeKind.Utc).AddTicks(8944))
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@ namespace Recipe.Entities.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     inf = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(6196))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 375, DateTimeKind.Utc).AddTicks(4258))
                 },
                 constraints: table =>
                 {
@@ -68,11 +68,13 @@ namespace Recipe.Entities.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NickName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhotoId = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NickName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PasswordConfirm = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PhotoId = table.Column<int>(type: "int", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 375, DateTimeKind.Utc).AddTicks(7654))
                 },
                 constraints: table =>
                 {
@@ -113,7 +115,7 @@ namespace Recipe.Entities.Migrations
                     CommentText = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Stars = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     FoodId = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 231, DateTimeKind.Utc).AddTicks(7134))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 372, DateTimeKind.Utc).AddTicks(7108))
                 },
                 constraints: table =>
                 {
@@ -136,7 +138,7 @@ namespace Recipe.Entities.Migrations
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FoodId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 3, 11, 57, 30, 233, DateTimeKind.Utc).AddTicks(9006))
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 376, DateTimeKind.Utc).AddTicks(1310))
                 },
                 constraints: table =>
                 {
@@ -149,6 +151,26 @@ namespace Recipe.Entities.Migrations
                     table.ForeignKey(
                         name: "FK_Photos_Myusers_UserId",
                         column: x => x.UserId,
+                        principalTable: "Myusers",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 8, 8, 14, 54, 26, 376, DateTimeKind.Utc).AddTicks(8091))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Roles_Myusers_UserID",
+                        column: x => x.UserID,
                         principalTable: "Myusers",
                         principalColumn: "ID");
                 });
@@ -252,6 +274,11 @@ namespace Recipe.Entities.Migrations
                     { 9, "Sosları yemeklerin üzerine dökmeden önce, sosun kıvamını ve tadını kontrol edin. Sosları yemekle aynı anda pişirmek, daha iyi bir uyum sağlar." },
                     { 10, "Yemeklerin sunumu da en az lezzeti kadar önemlidir. Güzel bir sunum, yemeklerin tadını daha da artırabilir ve iştah açıcı hale getirebilir." }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Myusers",
+                columns: new[] { "ID", "LastName", "Name", "NickName", "Password", "PasswordConfirm", "PhotoId" },
+                values: new object[] { 1, "Akdemir", "Serdar", "LOCKDOWN", "Serdar123456", "Serdar123456", null });
 
             migrationBuilder.InsertData(
                 table: "CategoryFoods",
@@ -452,6 +479,11 @@ namespace Recipe.Entities.Migrations
                 column: "ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Myusers_ID",
+                table: "Myusers",
+                column: "ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_FoodId",
                 table: "Photos",
                 column: "FoodId");
@@ -467,6 +499,16 @@ namespace Recipe.Entities.Migrations
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_ID",
+                table: "Roles",
+                column: "ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_UserID",
+                table: "Roles",
+                column: "UserID");
         }
 
         /// <inheritdoc />
@@ -483,6 +525,9 @@ namespace Recipe.Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Categories");

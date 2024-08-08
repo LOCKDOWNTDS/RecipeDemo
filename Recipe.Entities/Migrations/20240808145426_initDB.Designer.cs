@@ -12,8 +12,8 @@ using Recipe.Entities.DbContexts;
 namespace Recipe.Entities.Migrations
 {
     [DbContext(typeof(sqlContext))]
-    [Migration("20240803115730_initdb")]
-    partial class initdb
+    [Migration("20240808145426_initDB")]
+    partial class initDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 230, DateTimeKind.Utc).AddTicks(3539));
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 370, DateTimeKind.Utc).AddTicks(7745));
 
                     b.HasKey("ID");
 
@@ -469,7 +469,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 231, DateTimeKind.Utc).AddTicks(7134));
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 372, DateTimeKind.Utc).AddTicks(7108));
 
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
@@ -504,7 +504,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(2952));
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 374, DateTimeKind.Utc).AddTicks(8944));
 
                     b.Property<string>("HowManyPerson")
                         .IsRequired()
@@ -1217,7 +1217,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 232, DateTimeKind.Utc).AddTicks(6196));
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 375, DateTimeKind.Utc).AddTicks(4258));
 
                     b.Property<string>("inf")
                         .IsRequired()
@@ -1302,26 +1302,55 @@ namespace Recipe.Entities.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 375, DateTimeKind.Utc).AddTicks(7654));
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NickName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("PhotoId")
+                    b.Property<string>("PasswordConfirm")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("PhotoId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ID");
+
                     b.ToTable("Myusers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Akdemir",
+                            Name = "Serdar",
+                            NickName = "LOCKDOWN",
+                            Password = "Serdar123456",
+                            PasswordConfirm = "Serdar123456"
+                        });
                 });
 
             modelBuilder.Entity("Recipe.Entities.Model.Concrete.Photos", b =>
@@ -1335,7 +1364,7 @@ namespace Recipe.Entities.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 3, 11, 57, 30, 233, DateTimeKind.Utc).AddTicks(9006));
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 376, DateTimeKind.Utc).AddTicks(1310));
 
                     b.Property<int?>("FoodId")
                         .HasColumnType("int");
@@ -1964,6 +1993,35 @@ namespace Recipe.Entities.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Recipe.Entities.Model.Concrete.Role", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 8, 8, 14, 54, 26, 376, DateTimeKind.Utc).AddTicks(8091));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Recipe.Entities.Model.Concrete.CategoryFood", b =>
                 {
                     b.HasOne("Recipe.Entities.Model.Concrete.Category", "Category")
@@ -2009,6 +2067,15 @@ namespace Recipe.Entities.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Recipe.Entities.Model.Concrete.Role", b =>
+                {
+                    b.HasOne("Recipe.Entities.Model.Concrete.MyUser", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Recipe.Entities.Model.Concrete.Category", b =>
                 {
                     b.Navigation("Foods");
@@ -2025,8 +2092,9 @@ namespace Recipe.Entities.Migrations
 
             modelBuilder.Entity("Recipe.Entities.Model.Concrete.MyUser", b =>
                 {
-                    b.Navigation("UserPhoto")
-                        .IsRequired();
+                    b.Navigation("Roles");
+
+                    b.Navigation("UserPhoto");
                 });
 #pragma warning restore 612, 618
         }

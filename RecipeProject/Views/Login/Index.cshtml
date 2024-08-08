@@ -1,0 +1,63 @@
+﻿@model LoginVM
+@{
+
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col sm-4 lg-4 md-4"></div>
+		<div class="col sm-8 lg-8 md-8">
+
+            <div class="card">
+                <div class="card-body px-4">
+                    <form asp-action="" asp-controller="" asp-area="" method="post">
+                        <div class="mb-3 row">
+                            <label asp-for="Name" class="col-form-label text-start col-4">Adınız :</label>
+                            <div class="col-8 d-flex justify-content-center">
+                                <input type="text" class="form-control w-75" placeholder="Adınızı Giriniz" asp-for="Name" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="LastName" class="col-form-label text-start col-4">Soy Adınız :</label>
+                            <div class="col-8 d-flex justify-content-center">
+                                <input type="text" class="form-control w-75" placeholder="Soyadınızı Giriniz" asp-for="LastName" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="NickName" class="col-form-label text-start col-4">Kullanıcı Adı :</label>
+                            <div class="col-8 d-flex justify-content-center">
+                                <input type="text" class="form-control w-75" placeholder="Kullanıcı Adınızı Giriniz" asp-for="NickName" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Password" class="col-form-label text-start col-4">Şifreniz :</label>
+                            <div class="col-8 d-flex justify-content-center">
+                                <input type="password" class="form-control w-75" placeholder="Şifrenizi Giriniz" asp-for="Password" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="PasswordConfirm" class="col-form-label text-start col-4">Şifre Kontrol :</label>
+                            <div class="col-8 d-flex justify-content-center">
+                                <input type="password" class="form-control w-75" placeholder="Tekrar Şifre Giriniz" asp-for="PasswordConfirm" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                                <button class="btn btn-success w-75" type="submit">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+		</div>
+
+	</div>
+
+
+
+</div>
