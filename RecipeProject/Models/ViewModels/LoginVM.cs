@@ -32,5 +32,14 @@ namespace RecipeProjectMVC.Models.ViewModels
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Boş Bırakılamaz!")]
 		[DisplayName("Şifre Kontrol:")]
 		public string PasswordConfirm { get; set; }
+
+		[MaxLength(100, ErrorMessage = "Mailiniz Çok Uzun!")]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Boş Bırakılamaz!")]
+		[DisplayName("Mail:")]
+		[EmailAddress]
+		public string Mail { get; set; }
+		[DisplayName("Rol:")]
+		public List<string> Role { get; set; }
+
 	}
 }

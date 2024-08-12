@@ -1,63 +1,87 @@
 ﻿@model LoginVM
 @{
-
-}
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col sm-4 lg-4 md-4"></div>
-		<div class="col sm-8 lg-8 md-8">
-
-            <div class="card">
-                <div class="card-body px-4">
-                    <form asp-action="" asp-controller="" asp-area="" method="post">
-                        <div class="mb-3 row">
-                            <label asp-for="Name" class="col-form-label text-start col-4">Adınız :</label>
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="text" class="form-control w-75" placeholder="Adınızı Giriniz" asp-for="Name" />
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label asp-for="LastName" class="col-form-label text-start col-4">Soy Adınız :</label>
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="text" class="form-control w-75" placeholder="Soyadınızı Giriniz" asp-for="LastName" />
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label asp-for="NickName" class="col-form-label text-start col-4">Kullanıcı Adı :</label>
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="text" class="form-control w-75" placeholder="Kullanıcı Adınızı Giriniz" asp-for="NickName" />
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label asp-for="Password" class="col-form-label text-start col-4">Şifreniz :</label>
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="password" class="form-control w-75" placeholder="Şifrenizi Giriniz" asp-for="Password" />
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label asp-for="PasswordConfirm" class="col-form-label text-start col-4">Şifre Kontrol :</label>
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="password" class="form-control w-75" placeholder="Tekrar Şifre Giriniz" asp-for="PasswordConfirm" />
-                            </div>
-                        </div>
-
-                        <div class="row">
-                                <button class="btn btn-success w-75" type="submit">Kaydet</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
-		</div>
-
+	Layout = null;
+	<div class="alert alert-info" id="alertMessage">
+		@TempData["Message"]
 	</div>
+}
+<link href="~/css/Login.css"  type="text/css" rel="stylesheet" />
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<form asp-action="Log" asp-controller="Login" method="post">
+			<div class="login-form">
 
+				<div class="sign-in-htm">
+					<div class="group">
+						<label asp-for="NickName" class="label">Kullanıcı İsmi</label>
+						<input id="user" type="text" class="input" asp-for="NickName">
+					</div>
+					<div class="group">
+						<label asp-for="Password" class="label">Şifre</label>
+						<input id="pass" type="password" class="input" data-type="password" asp-for="Password">
+					</div>
+					<div class="group">
+						<input id="check" type="checkbox" class="check" checked>
+						<label for="check"><span class="icon"></span> Beni Hatırla</label>
+					</div>
+					<div class="group">
+						<input type="submit" class="button" value="Giriş Yap">
+					</div>
+					<div class="hr"></div>
+					@* 	<div class="foot-lnk">
+					<a href="#forgot">Forgot Password?</a>
+					</div> *@
+				</div>
 
+		</form>
+		<form asp-action="" asp-controller="Login" method="post">
 
+			<div class="sign-up-htm">
+				<div class="group">
+					<label asp-for="NickName" class="label">Kullanıcı Adı</label>
+					<input id="user" type="text" class="input" asp-for="NickName">
+				</div>
+				<div class="group">
+					<label asp-for="Name" class="label">Ad</label>
+					<input id="user" type="text" class="input" asp-for="Name">
+				</div>
+				<div class="group">
+					<label asp-for="LastName" class="label">Soyad</label>
+					<input id="user" type="text" class="input" asp-for="LastName">
+				</div>
+				<div class="group">
+					<label asp-for="Password" class="label">Şifre</label>
+					<input id="pass" type="password" class="input" data-type="password" asp-for="Password">
+				</div>
+				<div class="group">
+					<label asp-for="PasswordConfirm" class="label">Tekrar Şifre</label>
+					<input id="pass" type="password" class="input" data-type="password" asp-for="PasswordConfirm">
+				</div>
+				<div class="group">
+					<label asp-for="Mail" class="label">Email Addresi</label>
+					<input id="pass" type="text" class="input" asp-for="Mail">
+				</div>
+				<input type="hidden" asp-for="Role" value="User"/>
+				<div class="group">
+					<input type="submit" class="button" value="Kayıt Ol" />
+				</div>
+			</div>
+
+		</form>
+		
+		</div>
+	</div>
 </div>
+
+
+<script>
+	// Sayfa yüklendiğinde çalıştır
+	$(document).ready(function () {
+		// Alert mesajını 5 saniye sonra gizle
+		setTimeout(function () {
+			$('#alertMessage').fadeOut('slow');
+		}, 3000); // 5000 milisaniye = 5 saniye
+	});
+</script>

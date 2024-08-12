@@ -13,6 +13,7 @@ namespace Recipe.Entities.EntityConfig.Concrete
 			builder.Property(x => x.LastName).HasMaxLength(50).IsRequired();
 			builder.Property(x => x.NickName).HasMaxLength(50).IsRequired();
 			builder.Property(x => x.Password).HasMaxLength(50).IsRequired();
+			builder.Property(x => x.Mail).HasMaxLength(100);
 			builder.Property(x => x.PasswordConfirm).HasMaxLength(50).IsRequired();
 			builder.HasData(
 				new MyUser
@@ -22,7 +23,9 @@ namespace Recipe.Entities.EntityConfig.Concrete
 					LastName = "Akdemir",
 					NickName = "LOCKDOWN",
 					Password = "Serdar123456",
-					PasswordConfirm = "Serdar123456"
+					PasswordConfirm = "Serdar123456",
+					Mail = "SerdarAkdemir@gmail.com"
+
 				}
 
 

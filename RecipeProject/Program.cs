@@ -13,6 +13,7 @@ namespace RecipeProject
 			// Add services to the container.
 			builder.Services.AddRecipeInfoService();
 			builder.Services.AddDbContext<sqlContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+			builder.Services.AddCookieSettings();
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -27,12 +28,20 @@ namespace RecipeProject
 			app.UseStaticFiles();
 
 			app.UseRouting();
-
+			app.UseAuthentication();
 			app.UseAuthorization();
 
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
+				  name: "areas",
+				  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+				);
+			});
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
+				pattern: "{controller=Home}/{action=Index}/{id?}"
+				);
 
 			app.Run();
 		}
