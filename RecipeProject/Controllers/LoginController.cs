@@ -9,60 +9,65 @@ using System.Security.Claims;
 
 namespace RecipeProjectMVC.Controllers
 {
-	public class LoginController(sqlContext context, IManager<MyUser, int> userManager) : Controller
-	{
-		public IActionResult Index()
-		{
-			return View();
-		}
-		[HttpPost]
-		public async Task<IActionResult> Log(LoginVM login)
-		{
-			var user = userManager.Get(p => p.NickName == login.NickName && p.Password == login.Password);
-			if (user != null)
-			{
-				var claims = new List<Claim>
-			{
-				new Claim(ClaimTypes.Name,login.Name),
-				new Claim(ClaimTypes.Role,login.Role.FirstOrDefault()),
-				new Claim(ClaimTypes.Email,login.Mail)
+    public class LoginController(sqlContext context, IManager<MyUser, int> userManager) : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-			};
-				var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-				var authProperties = new AuthenticationProperties();
+        [HttpPost]
+        public async Task<IActionResult> Log(LoginVM login)
+        {
+            var user = userManager.GetAllInclude(p => p.NickName == login.NickName && p.Password == login.Password, p => p.Roles).FirstOrDefault();
+            if (user != null)
+            {
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,user.Name),
+                new Claim(ClaimTypes.Email,user.Mail)
 
-				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+            };
+                foreach (var item in user.Roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item.RoleName));
+                }
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties();
 
-				return RedirectToAction("Index", "AdminPage");
-			}
-			return RedirectToAction("Index");
-		}
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-
-		[HttpPost]
-		public IActionResult Register(LoginVM login)
-		{
-			if (ModelState.IsValid)
-			{
-				var newUser = new MyUser
-				{
-					Name = login.Name,
-					LastName = login.LastName,
-					NickName = login.NickName,
-					Mail = login.Mail,
-					Password = login.Password,
-					PasswordConfirm = login.PasswordConfirm,
-					Roles = login.Role.Select(p => new Role { RoleName = p }).ToList(),
-				};
-				context.Myusers.Add(newUser);
-				TempData["Message"] = "Kullanıcı başarıyla kaydedildi.";
-				return RedirectToAction("Index");
-			}
-			TempData["Message"] = "Hata.";
-			return RedirectToAction("Index");
-		}
+                return RedirectToAction("Index", "AdminPage");
+            }
+            return RedirectToAction("Index");
+        }
 
 
-	}
+        [HttpPost]
+        public IActionResult Register(LoginVM login)
+        {
+            if (ModelState.IsValid)
+            {
+                var newUser = new MyUser
+                {
+                    Name = login.Name,
+                    LastName = login.LastName,
+                    NickName = login.NickName,
+                    Mail = login.Mail,
+                    Password = login.Password,
+                    PasswordConfirm = login.PasswordConfirm,
+                    Roles = login.Role.Select(p => new Role { RoleName = p }).ToList(),
+                };
+                context.Myusers.Add(newUser);
+                context.SaveChanges();
+                TempData["Message"] = "Kullanıcı başarıyla kaydedildi.";
+                return RedirectToAction("Index");
+            }
+            TempData["Message"] = "Hata.";
+            return RedirectToAction("Index");
+        }
+
+
+    }
 }
 

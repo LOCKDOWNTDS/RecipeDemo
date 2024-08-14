@@ -1,8 +1,7 @@
-﻿@model List<MyUser>
+﻿@model UsersVM
 @{
-    Layout = "_LayoutAdmin";
-
 }
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -99,54 +98,62 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- DataTales Example -->
-                    
+
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <h4>Kullanıcılar</h4>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Ad</th>
-                                            <th>Soyad</th>
-                                            <th>Kullanıcı Adı</th>
-                                            <th>Mail</th>
-                                            <th>Roller</th>
-                                            <th>Güncelle</th>
-                                            <th>Sil</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                         @foreach (var item in Model)
-                                        { 
-                                            <tr>
-                                                <td>@item.Name</td>
-                                                <td>@item.LastName</td>
-                                                <td>@item.NickName</td>
-                                                <td>@item.Mail</td>
-                                                <td>
-                                                @foreach(var role in item.Roles)
-                                                {
-                                                   @role.RoleName
-                                                }
-                                                </td>
-                                                <td>
-                                                    <a  asp-route-id="@item.ID" asp-action="Index" asp-controller="EditUser" class="btn btn-info btn-circle btn-sm">
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a asp-route-id="@item.ID" asp-action="DeleteUser" asp-controller="EditUser" class="btn btn-danger btn-circle btn-sm">
-                                                      <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                             
-                                            </tr>
+                            <h4>Kullanıcı Güncelleme</h4>
+
+                            <form class="user" asp-action="Update" asp-controller="EditUser" asp-area="Admin" method="post">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" placeholder="Adınızı Giriniz..." asp-for="Name">
+                                    <span asp-validation-for="Name"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" placeholder="Soyadınızı Giriniz..." asp-for="LastName">
+                                        <span asp-validation-for="LastName"></span>
+                                    </div>
+                                </div>
+                                   <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" placeholder="Kullanıcı Adınızı Giriniz..." asp-for="NickName">
+                                        <span asp-validation-for="NickName"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" placeholder="Mailinizi Giriniz..." asp-for="Mail">
+                                        <span asp-validation-for="Mail"></span>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user" placeholder="Şifresiniz Giriniz..." asp-for="Password">
+                                        <span asp-validation-for="Password"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user" placeholder="Tekrar Şifresiniz Giriniz..." asp-for="PasswordConfirm">
+                                        <span asp-validation-for="PasswordConfirm"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    
+                                    <select asp-for="Roles" class="form-select" multiple="multiple">
+                                            <option value="" selected disabled>Select...</option>
+                                            <option value="User">User</option>
+                                            <option value="Admin">Admin</option>
                                             
-                                        } 
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </select>
+                                    <span asp-validation-for="Roles" class="text-danger"></span>
+
+                                </div>
+                                <input type="hidden" asp-for="User.ID"/>
+                                <button class="btn-success" type="submit">Kaydet</button>
+                            </form>
+
                         </div>
                     </div>
                     <!-- /.container-fluid -->
@@ -164,7 +171,6 @@
     </div>
     <!-- End of Page Wrapper -->
     <!-- DataTales Example -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -172,7 +178,7 @@
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -190,8 +196,6 @@
         </div>
     </div>
 
- 
+
 
 </body>
-
-
