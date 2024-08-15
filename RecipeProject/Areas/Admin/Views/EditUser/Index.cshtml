@@ -1,6 +1,7 @@
 ﻿@model UsersVM
 @{
 }
+<script src="https://kit.fontawesome.com/75900aeb22.js" crossorigin="anonymous"></script>
 
 <body id="page-top">
 
@@ -11,7 +12,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="Admin" asp-controller="Home" asp-action="Index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -34,9 +35,8 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Kullanıcılar</a>
-                        <a class="collapse-item" href="utilities-color.html">Yemekler</a>
-
+                        <a class="collapse-item" asp-area="Admin" asp-controller="User" asp-action="Index">Kullanıcılar</a>
+                        <a class="collapse-item" asp-area="Admin" asp-controller="Food" asp-action="Index">Yemekler</a>
                     </div>
                 </div>
             </li>
@@ -51,9 +51,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-
-
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
@@ -73,8 +70,6 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                @* <img class="img-profile rounded-circle"
-                                src="img/undraw_profile.svg"> *@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -98,62 +93,53 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- DataTales Example -->
-
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <h4>Kullanıcı Güncelleme</h4>
 
-                            <form class="user" asp-action="Update" asp-controller="EditUser" asp-area="Admin" method="post">
+                            <form  asp-action="Update" asp-controller="EditUser" asp-area="Admin" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" placeholder="Adınızı Giriniz..." asp-for="Name">
-                                    <span asp-validation-for="Name"></span>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" placeholder="Soyadınızı Giriniz..." asp-for="LastName">
-                                        <span asp-validation-for="LastName"></span>
-                                    </div>
-                                </div>
-                                   <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" placeholder="Kullanıcı Adınızı Giriniz..." asp-for="NickName">
-                                        <span asp-validation-for="NickName"></span>
-                                    </div>
+                                    <input type="text" class="form-control " placeholder="Adınızı Giriniz..." asp-for="Name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" placeholder="Mailinizi Giriniz..." asp-for="Mail">
-                                        <span asp-validation-for="Mail"></span>
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" placeholder="Şifresiniz Giriniz..." asp-for="Password">
-                                        <span asp-validation-for="Password"></span>
-                                    </div>
+                                    <input type="text" class="form-control " placeholder="Soyadınızı Giriniz..." asp-for="LastName">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" placeholder="Tekrar Şifresiniz Giriniz..." asp-for="PasswordConfirm">
-                                        <span asp-validation-for="PasswordConfirm"></span>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Kullanıcı Adınızı Giriniz..." asp-for="NickName">
+                                    <span asp-validation-for="NickName" class="text-danger"></span>
                                 </div>
-
                                 <div class="form-group">
-                                    
+                                    <input type="email" class="form-control " placeholder="Mailinizi Giriniz..." asp-for="Mail">
+                                    <span asp-validation-for="Mail" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Şifrenizi Giriniz..." asp-for="Password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Tekrar Şifrenizi Giriniz..." asp-for="PasswordConfirm">
+                                    <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
                                     <select asp-for="Roles" class="form-select" multiple="multiple">
-                                            <option value="" selected disabled>Select...</option>
-                                            <option value="User">User</option>
-                                            <option value="Admin">Admin</option>
-                                            
+                                        <option value="" selected disabled>Select...</option>
+                                        <option value="User">User</option>
+                                        <option value="Admin">Admin</option>
                                     </select>
                                     <span asp-validation-for="Roles" class="text-danger"></span>
-
                                 </div>
-                                <input type="hidden" asp-for="User.ID"/>
-                                <button class="btn-success" type="submit">Kaydet</button>
+                                
+                                <input type="hidden" asp-for="User.ID" />
+                                <input type="hidden" asp-for="User.Name" />
+                                <input type="hidden" asp-for="User.LastName" />
+                                <input type="hidden" asp-for="User.Mail" />
+                                <input type="hidden" asp-for="User.Password" /> 
+                                <input type="hidden" asp-for="User.PasswordConfirm" /> 
+                                <input type="hidden" asp-for="User.NickName" /> 
+                                <button class="btn btn-success" type="submit">Kaydet</button>
                             </form>
-
                         </div>
                     </div>
                     <!-- /.container-fluid -->
@@ -162,15 +148,11 @@
 
             </div>
             <!-- End of Main Content -->
-
-
-
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-    <!-- DataTales Example -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -195,7 +177,4 @@
             </div>
         </div>
     </div>
-
-
-
 </body>

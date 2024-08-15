@@ -24,7 +24,7 @@ namespace RecipeProjectMVC.Controllers
             {
                 var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,user.Name),
+                new Claim(ClaimTypes.Name,user.NickName),
                 new Claim(ClaimTypes.Email,user.Mail)
 
             };
@@ -37,7 +37,7 @@ namespace RecipeProjectMVC.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                return RedirectToAction("Index", "AdminPage");
+                return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index");
         }
@@ -56,7 +56,7 @@ namespace RecipeProjectMVC.Controllers
                     Mail = login.Mail,
                     Password = login.Password,
                     PasswordConfirm = login.PasswordConfirm,
-                    Roles = login.Role.Select(p => new Role { RoleName = p }).ToList(),
+                    Roles = login.Role.Select(p => new Role { RoleName = p }).ToList()
                 };
                 context.Myusers.Add(newUser);
                 context.SaveChanges();
@@ -67,6 +67,15 @@ namespace RecipeProjectMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            // Çıkış yap ve tokenleri sil
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Ana sayfaya veya giriş sayfasına yönlendirin
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

@@ -28,15 +28,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-table"></i>
                     <span>Tablolar</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Kullanıcılar</a>
-                        <a class="collapse-item" href="utilities-color.html">Yemekler</a>
+                        <a class="collapse-item" asp-action="Index" asp-controller="AdminPage">Kullanıcılar</a>
+                        <a class="collapse-item" asp-action="" asp-controller="AdminPage">Yemekler</a>
 
                     </div>
                 </div>
@@ -71,7 +70,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle"  id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 @* <img class="img-profile rounded-circle"
@@ -80,12 +79,8 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -112,8 +107,8 @@
                                             <th>Kullanıcı Adı</th>
                                             <th>Mail</th>
                                             <th>Roller</th>
-                                            <th>Güncelle</th>
-                                            <th>Sil</th>
+                                            <th>Durum</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -125,19 +120,18 @@
                                                 <td>@item.NickName</td>
                                                 <td>@item.Mail</td>
                                                 <td>
-                                                @foreach(var role in item.Roles)
-                                                {
-                                                   @role.RoleName
-                                                }
+                                                    @foreach(var role in item.Roles)
+                                                    {
+                                                       @role.RoleName<br />
+                                                    }
                                                 </td>
+                                                <td>@item.Active</td>
                                                 <td>
                                                     <a  asp-route-id="@item.ID" asp-action="Index" asp-controller="EditUser" class="btn btn-info btn-circle btn-sm">
-                                                        <i class="fas fa-info-circle"></i>
+                                                        <i class="fa-solid fa-pen-to-square fa-sm"></i>
                                                     </a>
-                                                </td>
-                                                <td>
-                                                    <a asp-route-id="@item.ID" asp-action="DeleteUser" asp-controller="EditUser" class="btn btn-danger btn-circle btn-sm">
-                                                      <i class="fas fa-trash"></i>
+                                                    <a asp-route-id="@item.ID" asp-action="Ban" asp-controller="EditUser" class="btn btn-warning btn-circle btn-sm">
+                                                        <i class="fa-solid fa-ban fa-sm"></i>
                                                     </a>
                                                 </td>
                                              
@@ -184,7 +178,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" asp-action="Logout" asp-controller="Login" asp-area="">Logout</a>
                 </div>
             </div>
         </div>

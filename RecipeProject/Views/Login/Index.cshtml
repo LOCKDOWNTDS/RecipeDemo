@@ -22,14 +22,12 @@
                     <div class="group">
                         <label asp-for="NickName" class="label">Kullanıcı İsmi</label>
                         <input id="user-signin" type="text" class="input" asp-for="NickName" />
+                        <span asp-validation-for="NickName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Password" class="label">Şifre</label>
                         <input id="pass-signin" type="password" class="input" data-type="password" asp-for="Password" />
-                    </div>
-                    <div class="group">
-                        <input id="check-signin" type="checkbox" class="check" checked />
-                        <label for="check-signin"><span class="icon"></span> Beni Hatırla</label>
+                        <span asp-validation-for="Password"></span>
                     </div>
                     <div class="group">
                         <input type="submit" class="button" value="Giriş Yap" />
@@ -44,26 +42,32 @@
                     <div class="group">
                         <label asp-for="NickName" class="label">Kullanıcı Adı</label>
                         <input id="user-signup" type="text" class="input" asp-for="NickName" />
+                        <span asp-validation-for="NickName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Name" class="label">Ad</label>
                         <input id="name-signup" type="text" class="input" asp-for="Name" />
+                        <span asp-validation-for="Name"></span>
                     </div>
                     <div class="group">
                         <label asp-for="LastName" class="label">Soyad</label>
                         <input id="lastname-signup" type="text" class="input" asp-for="LastName" />
+                        <span asp-validation-for="LastName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Password" class="label">Şifre</label>
                         <input id="pass-signup" type="password" class="input" data-type="password" asp-for="Password" />
+                        <span asp-validation-for="Password"></span>
                     </div>
                     <div class="group">
                         <label asp-for="PasswordConfirm" class="label">Tekrar Şifre</label>
                         <input id="passconfirm-signup" type="password" class="input" data-type="password" asp-for="PasswordConfirm" />
+                        <span asp-validation-for="PasswordConfirm"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Mail" class="label">Email Addresi</label>
                         <input id="mail-signup" type="text" class="input" asp-for="Mail" />
+                        <span asp-validation-for="Mail"></span>
                     </div>
                     <input type="hidden" asp-for="Role" value="User" />
                     <div class="group">

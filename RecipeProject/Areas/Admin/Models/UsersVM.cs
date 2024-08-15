@@ -6,8 +6,9 @@ namespace RecipeProjectMVC.Areas.Admin.Models
 {
     public class UsersVM
     {
-        public int MyProperty { get; set; }
-        public MyUser User { get; set; }
+        public MyUser? User { get; set; }
+
+
         [MaxLength(50, ErrorMessage = "Adınız Çok Uzun!")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Boş Bırakılamaz!")]
         [DisplayName("Adınız:")]
@@ -41,6 +42,7 @@ namespace RecipeProjectMVC.Areas.Admin.Models
         [DisplayName("Mail:")]
         [EmailAddress]
         public string Mail { get; set; }
+
         [DisplayName("Rol:")]
         public List<string> Roles { get; set; }
     }
