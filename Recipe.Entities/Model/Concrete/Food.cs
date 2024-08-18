@@ -16,5 +16,6 @@ namespace Recipe.Entities.Model.Concrete
 
         public List<Comments>? Comments { get; set; }
         public List<CategoryFood>? Categorys { get; set; }
+        public bool Active { get; set; } = true;
     }
 }
