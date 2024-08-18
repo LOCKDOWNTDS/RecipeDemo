@@ -64,10 +64,10 @@ namespace RecipeProjectMVC.Areas.Admin.Controllers
                 userRoleList.PasswordConfirm = _user.PasswordConfirm;
                 userManager.Update(userRoleList);
 
-                return RedirectToAction("Index", "AdminPage");
+                return RedirectToAction("MyUser", "AdminPage");
             }
 
-            return RedirectToAction("Index", "AdminPage");
+            return RedirectToAction("MyUser", "AdminPage");
         }
 
         [Area("Admin")]
@@ -81,7 +81,7 @@ namespace RecipeProjectMVC.Areas.Admin.Controllers
             else if (realUser.Active == false || realUser.Active == null)
                 realUser.Active = true;
             userManager.Update(realUser);
-            return RedirectToAction("Index", "AdminPage", "Admin");
+            return RedirectToAction("MyUser", "AdminPage", "Admin");
         }
 
 

@@ -25,7 +25,7 @@ namespace Recipe.Entities.DbContexts
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Recipe;Trusted_Connection=True;TrustServerCertificate=True");
+			optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Recipe;Trusted_Connection=True;TrustServerCertificate=True").EnableSensitiveDataLogging();
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
