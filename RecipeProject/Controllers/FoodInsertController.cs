@@ -66,6 +66,7 @@ namespace RecipeProjectMVC.Controllers
                     RecipeExplanation = foodVM.RecipeExplanation,
                     Categorys = selectedCategorys.Select(p => new CategoryFood { CategoryId = p }).ToList(),
                     OtherPictures = imagespaths.Select(p => new Photos { PhotoPath = p }).ToList(),
+                    Active = true,
                 };
 
                 var result = _foodManager.Insert(food);

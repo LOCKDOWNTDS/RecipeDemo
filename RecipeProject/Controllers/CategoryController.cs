@@ -22,6 +22,14 @@ namespace RecipeProjectMVC.Controllers
                 .ThenInclude(p => p.OtherPictures)
                 .FirstOrDefault(p => p.ID == id);
 
+            if (foodList != null)
+            {
+                // Aktif olan yiyecekleri filtrele
+                foodList.Foods = foodList.Foods
+                    .Where(f => f.Food.Active == true)
+                    .ToList();
+            }
+
             return View(foodList);
         }
     }

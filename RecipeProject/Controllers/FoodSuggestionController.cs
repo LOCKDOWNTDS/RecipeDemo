@@ -40,9 +40,9 @@ namespace RecipeProjectMVC.Controllers
             var food2 = _context.CategoryFoods.Where(p => p.CategoryId == RandomCategory()).Include(p => p.Food).ThenInclude(p => p.OtherPictures).ToList();
             var food3 = _context.CategoryFoods.Where(p => p.CategoryId == 9).Include(p => p.Food).ThenInclude(p => p.OtherPictures).ToList();
 
-            var soap = food1.OrderBy(x => rnd.Next()).FirstOrDefault();
-            var mainFood = food2.OrderBy(x => rnd.Next()).FirstOrDefault();
-            var dessert = food3.OrderBy(x => rnd.Next()).FirstOrDefault();
+            var soap = food1.OrderBy(x => rnd.Next()).Where(x => x.Food.Active == true).FirstOrDefault();
+            var mainFood = food2.OrderBy(x => rnd.Next()).Where(x => x.Food.Active == true).FirstOrDefault();
+            var dessert = food3.OrderBy(x => rnd.Next()).Where(x => x.Food.Active == true).FirstOrDefault();
 
             return new DailyMenuVM
             {

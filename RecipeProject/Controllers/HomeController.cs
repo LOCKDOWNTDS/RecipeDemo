@@ -17,7 +17,7 @@ namespace RecipeProject.Controllers
 
         public IActionResult Index()
         {
-            var foods = _foodManager.GetAllInclude(null, p => p.OtherPictures).ToList();
+            var foods = _foodManager.GetAllInclude(null, p => p.OtherPictures).Where(x => x.Active == true).ToList();
             ViewBag.infos = _infomanager.GetAll();
             return View(foods);
         }
