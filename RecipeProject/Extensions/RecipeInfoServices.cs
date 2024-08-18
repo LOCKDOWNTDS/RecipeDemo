@@ -15,6 +15,7 @@ namespace RecipeProjectMVC.Extensions
             Services.AddScoped(typeof(IManager<Info, int>), typeof(BaseManager<Info, int>));
             Services.AddScoped(typeof(IManager<Comments, int>), typeof(BaseManager<Comments, int>));
             Services.AddScoped(typeof(IManager<MyUser, int>), typeof(BaseManager<MyUser, int>));
+            Services.AddScoped(typeof(IFoodInsertManager), typeof(FoodInserManager));
             // services.AddScoped(typeof(IManager<>),typeof(BaseManager<>));
             return Services;
         }
@@ -25,8 +26,7 @@ namespace RecipeProjectMVC.Extensions
             {
                 options.Cookie.Name = "RecipeLogin";
                 options.LoginPath = "/Home/Index";
-                options.LogoutPath = "/Login/Index";
-                options.AccessDeniedPath = "/Login/Error";
+                options.LogoutPath = "/Home/Index";
                 options.Cookie.HttpOnly = true; //Tarayicidaki diger scriptler okuyamasin
                 options.Cookie.SameSite = SameSiteMode.Strict; // Bizim tarayicimiz disinda kullanilamasin
 

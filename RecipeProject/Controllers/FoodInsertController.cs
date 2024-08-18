@@ -8,12 +8,12 @@ namespace RecipeProjectMVC.Controllers
 {
     public class FoodInsertController : Controller
     {
-        private readonly IManager<Food, int> _foodManager;
+        private readonly IFoodInsertManager _foodManager;
         private readonly IManager<Category, int> _categoryManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly sqlContext _context;
 
-        public FoodInsertController(IManager<Food, int> foodManager, IManager<Category, int> categoryManager,
+        public FoodInsertController(IFoodInsertManager foodManager, IManager<Category, int> categoryManager,
             IWebHostEnvironment webHostEnvironment,
             sqlContext context)
         {
@@ -68,11 +68,25 @@ namespace RecipeProjectMVC.Controllers
                     OtherPictures = imagespaths.Select(p => new Photos { PhotoPath = p }).ToList(),
                     Active = true,
                 };
+                try
+                {
+                    var result = _foodManager.InsertFood(food);
+                    if (result != 0)
+                    {
+                        TempData["Message"] = "Form başarıyla kaydedildi.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        TempData["Message"] = "Hata.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
 
-                var result = _foodManager.Insert(food);
+                    throw new Exception(e.Message);
+                }
 
-                TempData["Message"] = "Form başarıyla kaydedildi.";
-                return RedirectToAction("Index");
+
             }
             else
             {

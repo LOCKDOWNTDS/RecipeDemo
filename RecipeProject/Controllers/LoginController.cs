@@ -22,24 +22,36 @@ namespace RecipeProjectMVC.Controllers
             var user = userManager.GetAllInclude(p => p.NickName == login.NickName && p.Password == login.Password, p => p.Roles).FirstOrDefault();
             if (user != null)
             {
-                var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name,user.NickName),
-                new Claim(ClaimTypes.Email,user.Mail)
-
-            };
-                foreach (var item in user.Roles)
+                if (user.Active == false)
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, item.RoleName));
+                    TempData["Message"] = " Kullanıcı Engellendi";
+                    return View("Index");
                 }
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var authProperties = new AuthenticationProperties();
+                else
+                {
+                    var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name,user.NickName),
+                    new Claim(ClaimTypes.Email,user.Mail)
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                };
+                    foreach (var item in user.Roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, item.RoleName));
+                    }
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties();
 
-                return RedirectToAction("Index", "Home");
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                    return RedirectToAction("Index", "Home");
+                }
+
             }
-            return RedirectToAction("Index");
+
+            TempData["Message"] = " Kullanıcı adı veya Şifre hatalı";
+            return View("Index");
+
+
         }
 
 

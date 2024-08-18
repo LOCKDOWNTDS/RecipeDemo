@@ -83,6 +83,7 @@
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
+
                             </div>
                         </li>
 
@@ -99,31 +100,31 @@
 
                             <form  asp-action="Update" asp-controller="EditUser" asp-area="Admin" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control " placeholder="Adınızı Giriniz..." asp-for="Name">
+                                    <input type="text" class="form-control " placeholder="Adınızı Giriniz..." asp-for="Name" required>
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control " placeholder="Soyadınızı Giriniz..." asp-for="LastName">
+                                    <input type="text" class="form-control " placeholder="Soyadınızı Giriniz..." asp-for="LastName" required>
                                     <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Kullanıcı Adınızı Giriniz..." asp-for="NickName">
+                                    <input type="text" class="form-control" placeholder="Kullanıcı Adınızı Giriniz..." asp-for="NickName" required>
                                     <span asp-validation-for="NickName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control " placeholder="Mailinizi Giriniz..." asp-for="Mail">
+                                    <input type="email" class="form-control " placeholder="Mailinizi Giriniz..." asp-for="Mail" required>
                                     <span asp-validation-for="Mail" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Şifrenizi Giriniz..." asp-for="Password">
+                                    <input type="password" class="form-control" placeholder="Şifrenizi Giriniz..." asp-for="Password" required>
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Tekrar Şifrenizi Giriniz..." asp-for="PasswordConfirm">
+                                    <input type="password" class="form-control" placeholder="Tekrar Şifrenizi Giriniz..." asp-for="PasswordConfirm" required>
                                     <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <select asp-for="Roles" class="form-select" multiple="multiple">
+                                    <select asp-for="Roles" class="form-select" multiple="multiple" required>
                                         <option value="" selected disabled>Select...</option>
                                         <option value="User">User</option>
                                         <option value="Admin">Admin</option>
@@ -174,6 +175,7 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
+
             </div>
         </div>
     </div>

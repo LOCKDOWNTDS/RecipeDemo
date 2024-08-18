@@ -4,29 +4,43 @@
 }
 <head>
     <link href="~/css/Login.css" type="text/css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="~/css/Login.css" type="text/css" rel="stylesheet" />
+    <script>
+        // Sayfa yüklendiğinde çalıştır
+        $(document).ready(function () {
+            // Alert mesajını 5 saniye sonra gizle
+            setTimeout(function () {
+                $('#alertMessage').fadeOut('slow');
+            }, 3000); // 5000 milisaniye = 5 saniye
+        });
+    </script>
 </head>
 
-<div class="alert alert-info" id="alertMessage">
-    @TempData["Message"]
-</div>
 
 <div class="login-wrap">
+    @if (TempData["Message"] != null)
+    {
+    <div class="alert alert-info" id="alertMessage">
+        @TempData["Message"]
+    </div>
+    }
     <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-
+        
         <div class="login-form">
             <!-- Sign In Form -->
             <form asp-action="Log" asp-controller="Login" method="post">
                 <div class="sign-in-htm">
                     <div class="group">
                         <label asp-for="NickName" class="label">Kullanıcı İsmi</label>
-                        <input id="user-signin" type="text" class="input" asp-for="NickName" />
+                        <input id="user-signin" type="text" class="input" asp-for="NickName" required/>
                         <span asp-validation-for="NickName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Password" class="label">Şifre</label>
-                        <input id="pass-signin" type="password" class="input" data-type="password" asp-for="Password" />
+                        <input id="pass-signin" type="password" class="input" data-type="password" asp-for="Password" required />
                         <span asp-validation-for="Password"></span>
                     </div>
                     <div class="group">
@@ -35,38 +49,38 @@
                     <div class="hr"></div>
                 </div>
             </form>
-
+           
             <!-- Sign Up Form -->
             <form asp-action="Register" asp-controller="Login" method="post">
                 <div class="sign-up-htm">
                     <div class="group">
                         <label asp-for="NickName" class="label">Kullanıcı Adı</label>
-                        <input id="user-signup" type="text" class="input" asp-for="NickName" />
+                        <input id="user-signup" type="text" class="input" asp-for="NickName" required />
                         <span asp-validation-for="NickName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Name" class="label">Ad</label>
-                        <input id="name-signup" type="text" class="input" asp-for="Name" />
+                        <input id="name-signup" type="text" class="input" asp-for="Name" required />
                         <span asp-validation-for="Name"></span>
                     </div>
                     <div class="group">
                         <label asp-for="LastName" class="label">Soyad</label>
-                        <input id="lastname-signup" type="text" class="input" asp-for="LastName" />
+                        <input id="lastname-signup" type="text" class="input" asp-for="LastName" required />
                         <span asp-validation-for="LastName"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Password" class="label">Şifre</label>
-                        <input id="pass-signup" type="password" class="input" data-type="password" asp-for="Password" />
+                        <input id="pass-signup" type="password" class="input" data-type="password" asp-for="Password" required />
                         <span asp-validation-for="Password"></span>
                     </div>
                     <div class="group">
                         <label asp-for="PasswordConfirm" class="label">Tekrar Şifre</label>
-                        <input id="passconfirm-signup" type="password" class="input" data-type="password" asp-for="PasswordConfirm" />
+                        <input id="passconfirm-signup" type="password" class="input" data-type="password" asp-for="PasswordConfirm" required />
                         <span asp-validation-for="PasswordConfirm"></span>
                     </div>
                     <div class="group">
                         <label asp-for="Mail" class="label">Email Addresi</label>
-                        <input id="mail-signup" type="text" class="input" asp-for="Mail" />
+                        <input id="mail-signup" type="text" class="input" asp-for="Mail" required />
                         <span asp-validation-for="Mail"></span>
                     </div>
                     <input type="hidden" asp-for="Role" value="User" />
@@ -74,17 +88,9 @@
                         <input type="submit" class="button" value="Kayıt Ol" />
                     </div>
                 </div>
+               
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    // Sayfa yüklendiğinde çalıştır
-    $(document).ready(function () {
-        // Alert mesajını 3 saniye sonra gizle
-        setTimeout(function () {
-            $('#alertMessage').fadeOut('slow');
-        }, 3000);
-    });
-</script>

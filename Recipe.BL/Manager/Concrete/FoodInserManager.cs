@@ -6,12 +6,16 @@ namespace Recipe.BL.Manager.Concrete
 {
     public class FoodInserManager : BaseManager<Food, int>, IFoodInsertManager
     {
+        private readonly sqlContext _context;
         public FoodInserManager(sqlContext context) : base(context)
         {
+            this._context = context;
         }
 
-        public void InsertFood(Food item)
+
+        public int InsertFood(Food item)
         {
+
             bool succes = true;
             if (item.Name.Length < 0 && item.Name.Length > 50)
             {
@@ -43,6 +47,10 @@ namespace Recipe.BL.Manager.Concrete
                 succes = false;
                 throw new Exception("Kategori Boş Bırakılamaz");
             }
+
+
+            _context.Foods.Add(item);
+            return _context.SaveChanges();
         }
     }
 }

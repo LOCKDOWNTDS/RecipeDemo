@@ -46,9 +46,15 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" asp-action="myUser" asp-controller="AdminPage">Kullanıcılar</a>
 						<a class="collapse-item" asp-action="Foods" asp-controller="AdminPage">Yemekler</a>
-
 					</div>
 				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link"   asp-action="Index" asp-controller="Home" asp-area="">
+					<i class="fa-solid fa-backward"></i>
+					<span>Panelden Çık</span>
+				</a>
+				
 			</li>
 
 			<!-- Divider -->
@@ -86,6 +92,7 @@
 								<img class="img-profile rounded-circle"
 								src="~/img/AdminIcon.png">
 							</a>
+
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								 aria-labelledby="userDropdown">
