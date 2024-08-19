@@ -40,6 +40,7 @@ namespace RecipeProjectMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(FoodsVM food)
         {
+            var id = food.FoodID;
             if (food == null || food.FoodID == 0)
             {
                 return BadRequest("Invalid food data.");
@@ -91,11 +92,19 @@ namespace RecipeProjectMVC.Areas.Admin.Controllers
                 {
                     foreach (var item in food.OtherPictures)
                     {
-                        string imagepath = await SaveImage(item);
-                        imagespaths.Add(imagepath);
+                        try
+                        {
+                            string imagepath = await SaveImage(item);
+                            imagespaths.Add(imagepath);
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            // Geçersiz dosya uzantısı hatası
+                            TempData["Message"] = $"Hata: {ex.Message}";
+                            return RedirectToAction("Index", "EditFood", new { id = food.FoodID });
+                        }
                     }
                 }
-
                 foodCategoryList.Name = food.Name;
                 foodCategoryList.Materials = food.Materials;
                 foodCategoryList.HowManyPerson = food.HowManyPerson;

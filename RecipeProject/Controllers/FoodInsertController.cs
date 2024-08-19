@@ -44,34 +44,44 @@ namespace RecipeProjectMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<string> imagespaths = new List<string>();
-
-                // PictureOne dosyasını kaydet
-                if (foodVM.OtherPictures != null)
-                {
-                    foreach (var item in foodVM.OtherPictures)
-                    {
-                        string imagepath = await SaveImage(item);
-                        imagespaths.Add(imagepath);
-                    }
-                }
-
-                var selectedCategorys = foodVM.SelectedCategoryIds;
-                Food food = new Food
-                {
-                    ID = foodVM.LastID + 1,
-                    Name = foodVM.Name,
-                    Materials = foodVM.Materials,
-                    HowManyPerson = foodVM.HowManyPerson,
-                    PreparationTime = foodVM.PreparationTime,
-                    CookingTime = foodVM.CookingTime,
-                    RecipeExplanation = foodVM.RecipeExplanation,
-                    Categorys = selectedCategorys.Select(p => new CategoryFood { CategoryId = p }).ToList(),
-                    OtherPictures = imagespaths.Select(p => new Photos { PhotoPath = p }).ToList(),
-                    Active = true,
-                };
                 try
                 {
+                    List<string> imagespaths = new List<string>();
+
+                    // PictureOne dosyasını kaydet
+                    if (foodVM.OtherPictures != null)
+                    {
+                        foreach (var item in foodVM.OtherPictures)
+                        {
+                            try
+                            {
+                                string imagepath = await SaveImage(item);
+                                imagespaths.Add(imagepath);
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                // Geçersiz dosya uzantısı hatası
+                                TempData["Message"] = $"Hata: {ex.Message}";
+                                return RedirectToAction("Index");
+                            }
+                        }
+                    }
+
+                    var selectedCategorys = foodVM.SelectedCategoryIds;
+                    Food food = new Food
+                    {
+                        ID = foodVM.LastID + 1,
+                        Name = foodVM.Name,
+                        Materials = foodVM.Materials,
+                        HowManyPerson = foodVM.HowManyPerson,
+                        PreparationTime = foodVM.PreparationTime,
+                        CookingTime = foodVM.CookingTime,
+                        RecipeExplanation = foodVM.RecipeExplanation,
+                        Categorys = selectedCategorys.Select(p => new CategoryFood { CategoryId = p }).ToList(),
+                        OtherPictures = imagespaths.Select(p => new Photos { PhotoPath = p }).ToList(),
+                        Active = true,
+                    };
+
                     var result = _foodManager.InsertFood(food);
                     if (result != 0)
                     {
@@ -79,23 +89,24 @@ namespace RecipeProjectMVC.Controllers
                         return RedirectToAction("Index");
                     }
                     else
+                    {
                         TempData["Message"] = "Hata.";
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
                 }
                 catch (Exception e)
                 {
-
-                    throw new Exception(e.Message);
+                    TempData["Message"] = "Bir hata oluştu: " + e.Message;
+                    return RedirectToAction("Index");
                 }
-
-
             }
             else
             {
-                TempData["Message"] = "Hata.";
+                TempData["Message"] = "Formda hata var.";
                 return RedirectToAction("Index");
             }
         }
+
 
         private async Task<string> SaveImage(IFormFile file)
         {
@@ -105,7 +116,7 @@ namespace RecipeProjectMVC.Controllers
 
             if (!allowedExtensions.Contains(fileExtension))
             {
-                throw new InvalidOperationException("Geçersiz dosya uzantısı.");
+                throw new InvalidOperationException("Geçersiz dosya uzantısı.(.jpg,.jpeg,.png)");
             }
 
             // Dosya adını ve uzantısını yeniden düzenle
