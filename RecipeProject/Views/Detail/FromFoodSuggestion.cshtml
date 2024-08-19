@@ -105,7 +105,7 @@
                         </label>
                     </div>
                     <div class="mb-3">
-                        <input class="form-text" asp-for="NewCommentTitle" placeholder="Başlığınızı yazın" />
+                        <input class="form-text" asp-for="NewCommentTitle" placeholder="Başlığınızı yazın" required />
                         <div class="star-rating">
                             <input type="radio" id="5-stars" name="Stars" value="5" asp-for="Stars" required />
                             <label for="5-stars" class="fa fa-star"></label>
@@ -118,9 +118,21 @@
                             <input type="radio" id="1-star" name="Stars" value="1" asp-for="Stars" />
                             <label for="1-star" class="fa fa-star"></label>
                         </div>
-                        <textarea class="form-control" asp-for="NewCommentText" rows="3" placeholder="Yorumunuzu yazın"></textarea>
+                        <textarea class="form-control" asp-for="NewCommentText" rows="3" placeholder="Yorumunuzu yazın" required></textarea>
                     </div>
-                    <button class="btn-success" type="submit">Kaydet</button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                        {
+                            <button class="btn-success" type="submit">Kaydet</button>
+                        }
+
+                    }
+                    else
+                    {
+                        <a class="btn-success" asp-action="Index" asp-controller="Login">Kaydet</a>
+                    }
+                    
                 </form>
                 <h4>Yorumlar</h4>
                 @foreach (var comment in Model.Comments)

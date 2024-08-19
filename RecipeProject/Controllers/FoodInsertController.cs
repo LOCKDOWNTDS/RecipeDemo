@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Recipe.BL.Manager.Abstract;
 using Recipe.Entities.DbContexts;
 using Recipe.Entities.Model.Concrete;
@@ -6,6 +7,7 @@ using RecipeProjectMVC.Models.ViewModels;
 
 namespace RecipeProjectMVC.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class FoodInsertController : Controller
     {
         private readonly IFoodInsertManager _foodManager;
